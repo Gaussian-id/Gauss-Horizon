@@ -417,6 +417,50 @@ pub async fn list_collection_specs(client: &Client, database: &str) -> Result<Ve
     Ok(specs)
 }
 
+/// Returns only MongoDB's declared collection metadata (`listCollections`).
+/// No document is read and no field shape is inferred from user data.
+pub async fn get_collection_declared_schema(
+    client: &Client,
+    database: &str,
+    collection: &str,
+) -> Result<serde_json::Value, String> {
+    let result = client
+        .database(database)
+        .run_command(doc! { "listCollections": 1, "filter": { "name": collection }, "nameOnly": false })
+        .await
+        .map_err(|error| error.to_string())?;
+    let entry = result
+        .get_document("cursor")
+        .ok()
+        .and_then(|cursor| cursor.get_array("firstBatch").ok())
+        .and_then(|batch| batch.first())
+        .cloned();
+    match entry {
+        Some(entry) => serde_json::to_value(entry).map_err(|error| error.to_string()),
+        None => Ok(serde_json::Value::Null),
+    }
+}
+
+/// Returns only declared Atlas Search / Search index definitions. This uses
+/// MongoDB's metadata command and never reads collection documents.
+pub async fn list_collection_search_indexes(
+    client: &Client,
+    database: &str,
+    collection: &str,
+) -> Result<serde_json::Value, String> {
+    let mut cursor = client
+        .database(database)
+        .collection::<Document>(collection)
+        .list_search_indexes()
+        .await
+        .map_err(|error| error.to_string())?;
+    let mut indexes = Vec::new();
+    while cursor.advance().await.map_err(|error| error.to_string())? {
+        indexes.push(cursor.deserialize_current().map_err(|error| error.to_string())?);
+    }
+    serde_json::to_value(indexes).map_err(|error| error.to_string())
+}
+
 /// Name-only listing (schema, GridFS helpers, and other callers that do not need type).
 pub async fn list_collections(client: &Client, database: &str) -> Result<Vec<String>, String> {
     client.database(database).list_collection_names().await.map_err(|e| e.to_string())

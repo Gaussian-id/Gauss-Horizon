@@ -13,12 +13,12 @@ Read the practical [Chiron Horizon User Guide](docs/content/docs/user-guide.mdx)
 - **Query editor** — syntax highlighting, metadata-aware SQL completion, formatting, query history, saved snippets, and selected query execution.
 - **AI assistant** — generate and explain queries, troubleshoot errors, and review proposed actions with built-in execution safeguards.
 - **Data tools** — browse and edit table data, import CSV and Excel files, export results, compare data, and transfer data between supported engines.
-- **Schema tools** — inspect database objects, edit table structures, compare schemas, view ER diagrams, and inspect query plans where supported.
+- **Schema tools** — inspect database objects, edit table structures, compare schemas, and open the context-aware Schema Viewer: ERDs for relational stores, metagraphs for graph metadata, declared JSON trees for document stores, and native summaries for vector and time-series stores.
 - **Connectivity** — SSH tunnels, proxy settings, encrypted configuration export and import, and connection organization.
 - **Desktop and web** — a Tauri desktop application for macOS, Windows, and Linux, plus a web backend for self-hosting.
 - **CLI and MCP** — terminal workflows and AI agent integration for supported database connections.
 
-Feature availability varies by database engine. The ChironDB connector currently supports collection browsing and ChironQL execution; generic table editing, schema tools, and MCP access are not enabled for this connector.
+Feature availability varies by database engine. The Schema Viewer uses only metadata declared by the connected engine; a schemaless collection without a validator or mapping is reported as such and is never inferred from sampled data.
 
 ## ChironDB
 
@@ -28,6 +28,8 @@ Feature availability varies by database engine. The ChironDB connector currently
 2. Create a connection in Chiron Horizon and select **ChironDB**.
 3. Enter the server host, HTTP port (default: `7401`), and any required credentials.
 4. Open the connection to browse collections or run ChironQL.
+
+For ChironDB's relational preview, choose **ChironDB Relational (PostgreSQL wire)** under PostgreSQL and connect to port `7403` (default user `chiron`, database `gaussdb`, `sslmode=disable`). Horizon supports connection testing, SQL execution, joins, and table/column discovery through this profile. Index and foreign-key facets are reported as partial until ChironDB exposes compatible PostgreSQL catalog metadata.
 
 For example:
 

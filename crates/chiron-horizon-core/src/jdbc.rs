@@ -8,7 +8,7 @@ use std::io::Read;
 use std::path::{Path, PathBuf};
 
 const JDBC_PLUGIN_DOWNLOAD_URL: &str =
-    "https://github.com/Gaussian-id/Chiron-Horizon/releases/download/v0.1.1/chiron-horizon-jdbc-plugin-0.1.1.zip";
+    "https://github.com/Gaussian-id/Chiron-Horizon/releases/download/v0.1.2/chiron-horizon-jdbc-plugin-0.1.2.zip";
 const OFFLINE_JDBC_MANIFEST_ENTRY: &str = "jdbc/offline-manifest.json";
 const OFFLINE_JDBC_FORMAT_VERSION: u32 = 1;
 const OFFLINE_JDBC_PLUGIN_ENTRY: &str = "jdbc/plugin.zip";
@@ -503,7 +503,7 @@ async fn jdbc_plugin_status_from_dir(plugin_dir: &Path) -> Result<JdbcPluginStat
 }
 
 /// Reads the local manifest after an optional supplied release record. The
-/// desktop updater is disabled in 0.1.1, so normal status checks supply no
+/// desktop updater is disabled in 0.1.2, so normal status checks supply no
 /// remote record; the parameter remains for deterministic local tests.
 async fn jdbc_plugin_status_from_dir_after(
     plugin_dir: &Path,

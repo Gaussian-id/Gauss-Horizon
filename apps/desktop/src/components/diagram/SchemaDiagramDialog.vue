@@ -308,6 +308,7 @@ const showRefreshConfirm = ref(false);
 const loadedTableCount = ref(0);
 const totalTableCount = ref(0);
 const failedTableCount = ref(0);
+const foreignKeyMetadataUnavailable = ref(false);
 const positions = ref<Record<string, DiagramPosition>>({});
 const showAllTables = ref(false);
 const diagramMode = ref<"table" | "engineering">("table");
@@ -1349,7 +1350,10 @@ async function loadTableDiagramData(tableName: string, querySchema: string): Pro
   try {
     const [columns, foreignKeys, indexes] = await Promise.all([
       api.getColumns(connectionId.value, database.value, querySchema, tableName),
-      api.listForeignKeys(connectionId.value, database.value, querySchema, tableName).catch(() => []),
+      api.listForeignKeys(connectionId.value, database.value, querySchema, tableName).catch(() => {
+        foreignKeyMetadataUnavailable.value = true;
+        return [];
+      }),
       api.listIndexes(connectionId.value, database.value, querySchema, tableName).catch(() => []),
     ]);
     return {
@@ -1387,6 +1391,7 @@ async function loadDiagram() {
   loadedTableCount.value = 0;
   totalTableCount.value = 0;
   failedTableCount.value = 0;
+  foreignKeyMetadataUnavailable.value = false;
   try {
     await store.ensureConnected(connectionId.value);
     const targetSchemas = isSchemaAware.value ? selectedSchemas.value : [database.value];
@@ -2111,6 +2116,7 @@ onUnmounted(() => {
         @create-table="showCreateTableDialog = true"
         @sync-to-database="showSyncDialog = true"
       />
+      <p v-if="foreignKeyMetadataUnavailable" class="border-b border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs text-muted-foreground">{{ t("diagram.foreignKeysUnavailable") }}</p>
 
       <div class="flex min-h-0 flex-1 flex-col bg-muted/20">
         <div class="min-h-0 flex-1 flex overflow-hidden">

@@ -15,6 +15,18 @@ defaultPort: 6667
 traits:
   schemaAware: true
 supportLevel: understand
+access:
+  connectionPicker: direct
+  runtimeProvider: agent
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: timeseries
+  provider: timeseries-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -22,6 +34,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

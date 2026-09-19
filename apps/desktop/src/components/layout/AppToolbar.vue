@@ -2,7 +2,7 @@
 import { computed, ref, onMounted, onBeforeUnmount, h, nextTick, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { invoke } from "@tauri-apps/api/core";
-import { ChevronsRight, DatabaseZap, FilePlus2, Moon, Sun, SunMoon, History, Bot, ArrowLeftRight, FileCode, BookMarked, GitCompareArrows, TableProperties, Settings, CloudDownload, Package, PlugZap, FileDown, FolderTree } from "@lucide/vue";
+import { ChevronsRight, DatabaseZap, FilePlus2, Moon, Sun, SunMoon, History, Bot, ArrowLeftRight, FileCode, BookMarked, GitCompareArrows, TableProperties, Settings, CloudDownload, Package, PlugZap, FileDown, FolderTree, Network } from "@lucide/vue";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import LightDropdown from "@/components/ui/LightDropdown.vue";
@@ -57,6 +57,7 @@ const emit = defineEmits<{
   "expand-sidebar": [];
   "new-connection": [];
   "new-query": [];
+  "open-schema-viewer": [];
   "set-theme-mode": [mode: AppThemeMode];
   "toggle-ai": [];
   "toggle-history": [];
@@ -565,6 +566,11 @@ const toolbarStyle = computed(() => {
     <Button variant="ghost" size="sm" :class="toolbarTextButtonClass" @click="emit('new-query')" :disabled="!hasConnections">
       <FilePlus2 class="h-3.5 w-3.5" />
       <span :class="toolbarTextLabelClass">{{ t("toolbar.newQuery") }}</span>
+    </Button>
+
+    <Button v-if="toolbarItems.schemaViewer" variant="ghost" size="sm" :class="toolbarTextButtonClass" @click="emit('open-schema-viewer')" :disabled="!hasConnections">
+      <Network class="h-3.5 w-3.5" />
+      <span :class="toolbarTextLabelClass">{{ t("toolbar.schemaViewer") }}</span>
     </Button>
 
     <template v-if="!toolbarCollapsed">

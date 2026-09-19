@@ -27,6 +27,19 @@ driverProfiles:
     storeVisible: true
     storeOrder: 46
 supportLevel: connect
+access:
+  connectionPicker: merged-profile
+  runtimeProvider: specialized-service
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures:
+    - mq-admin
+schemaViewer:
+  kind: service
+  provider: service-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: false
   metadataBrowse: true
@@ -34,6 +47,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

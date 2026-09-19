@@ -50,7 +50,7 @@ class DamengAgentMetadataTest {
         Assertions.assertEquals(List.of("CHIRON_HORIZON_TEST", "SYSDBA"), schemas);
         Assertions.assertEquals(List.of("CONNECTION_SMOKE"), tables.stream().map(TableInfo::getName).toList());
         Assertions.assertTrue(metadataCalls.contains("getSchemas"), metadataCalls.toString());
-        Assertions.assertTrue(metadataCalls.contains("getTables:GAUSS\\_HORIZON\\_TEST"), metadataCalls.toString());
+        Assertions.assertTrue(metadataCalls.contains("getTables:CHIRON\\_HORIZON\\_TEST"), metadataCalls.toString());
     }
 
     @Test

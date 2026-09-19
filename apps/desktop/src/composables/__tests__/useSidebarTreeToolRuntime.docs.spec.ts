@@ -9,6 +9,7 @@ function setup(node: Partial<TreeNode>, options: { treeNodes?: TreeNode[]; selec
   const connectionStore = {
     docsSource: null as unknown,
     diagramSource: null as unknown,
+    schemaViewerSource: null as unknown,
     databaseExportSource: null as unknown,
     mongoImportSource: undefined as unknown,
     mongoDatabaseDumpSource: null as unknown,
@@ -61,7 +62,7 @@ describe("useSidebarTreeToolRuntime diagram and database export", () => {
   const publicView: TreeNode = { id: "v1", label: "active_users", type: "view", connectionId: "c1", database: "db", schema: "public" };
   const group: TreeNode = { id: "group", label: "Tables", type: "group-tables", children: [publicUsers, publicOrders, salesUsers, publicView] };
 
-  it("opens a multi-table diagram only for tables in the active schema", () => {
+  it("routes the legacy diagram action to Schema Viewer with the active table preselected", () => {
     const { connectionStore, runtime } = setup(publicUsers, {
       treeNodes: [group],
       selectedTreeNodeIds: [publicOrders.id, publicUsers.id, salesUsers.id],
@@ -69,12 +70,11 @@ describe("useSidebarTreeToolRuntime diagram and database export", () => {
 
     runtime.openDiagram();
 
-    expect(connectionStore.diagramSource).toEqual({
+    expect(connectionStore.schemaViewerSource).toEqual({
       connectionId: "c1",
       database: "db",
       schema: "public",
-      tableName: "users",
-      tableNames: ["users", "orders"],
+      object: "users",
     });
   });
 

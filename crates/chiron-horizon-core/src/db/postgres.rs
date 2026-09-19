@@ -7567,6 +7567,94 @@ pub async fn execute_query(pool: &Pool, sql: &str) -> Result<QueryResult, String
     execute_query_with_max_rows(pool, sql, None).await
 }
 
+/// Execute a row-returning query through PostgreSQL's simple text protocol.
+/// ChironDB's relational preview deliberately implements this protocol as its
+/// broadest compatibility surface; using it also avoids assuming full binary
+/// type/catalog support from the preview server.
+pub async fn execute_query_text_protocol(
+    pool: &Pool,
+    sql: &str,
+    max_rows: Option<usize>,
+) -> Result<QueryResult, String> {
+    let client = checkout_postgres_client(pool, None, super::connection_timeout()).await?;
+    execute_select_text(&client, sql, Instant::now(), query_result_row_limit(max_rows), None, None).await
+}
+
+fn chirondb_catalog_literal(value: &str) -> String {
+    value.replace('\'', "''")
+}
+
+fn result_string(row: &[serde_json::Value], index: usize) -> Option<String> {
+    row.get(index).and_then(|value| match value {
+        serde_json::Value::String(value) => Some(value.clone()),
+        serde_json::Value::Number(value) => Some(value.to_string()),
+        serde_json::Value::Bool(value) => Some(value.to_string()),
+        _ => None,
+    })
+}
+
+fn result_i32(row: &[serde_json::Value], index: usize) -> Option<i32> {
+    row.get(index).and_then(|value| {
+        value.as_i64().and_then(|value| value.try_into().ok()).or_else(|| value.as_str()?.parse().ok())
+    })
+}
+
+pub async fn list_chirondb_relational_tables(pool: &Pool, schema: &str) -> Result<Vec<TableInfo>, String> {
+    let schema = if schema.trim().is_empty() { "public" } else { schema.trim() };
+    let sql = format!(
+        "SELECT table_name, table_type FROM information_schema.tables WHERE table_schema = '{}' ORDER BY table_name",
+        chirondb_catalog_literal(schema)
+    );
+    let result = execute_query_text_protocol(pool, &sql, Some(10_000)).await?;
+    Ok(result
+        .rows
+        .iter()
+        .filter_map(|row| {
+            Some(TableInfo {
+                name: result_string(row, 0)?,
+                table_type: result_string(row, 1).unwrap_or_else(|| "BASE TABLE".to_string()),
+                valid: None,
+                comment: None,
+                parent_schema: None,
+                parent_name: None,
+            })
+        })
+        .collect())
+}
+
+pub async fn get_chirondb_relational_columns(
+    pool: &Pool,
+    schema: &str,
+    table: &str,
+) -> Result<Vec<ColumnInfo>, String> {
+    let schema = if schema.trim().is_empty() { "public" } else { schema.trim() };
+    let sql = format!(
+        "SELECT column_name, data_type, is_nullable, column_default, character_maximum_length, numeric_precision, numeric_scale, is_identity \
+         FROM information_schema.columns WHERE table_schema = '{}' AND table_name = '{}' ORDER BY ordinal_position",
+        chirondb_catalog_literal(schema),
+        chirondb_catalog_literal(table)
+    );
+    let result = execute_query_text_protocol(pool, &sql, Some(10_000)).await?;
+    Ok(result
+        .rows
+        .iter()
+        .filter_map(|row| {
+            let identity = result_string(row, 7).is_some_and(|value| value.eq_ignore_ascii_case("YES"));
+            Some(ColumnInfo {
+                name: result_string(row, 0)?,
+                data_type: result_string(row, 1).unwrap_or_default(),
+                is_nullable: result_string(row, 2).is_none_or(|value| value.eq_ignore_ascii_case("YES")),
+                column_default: result_string(row, 3),
+                extra: identity.then(|| "identity".to_string()),
+                numeric_precision: result_i32(row, 5),
+                numeric_scale: result_i32(row, 6),
+                character_maximum_length: result_i32(row, 4),
+                ..Default::default()
+            })
+        })
+        .collect())
+}
+
 pub async fn execute_query_with_max_rows(
     pool: &Pool,
     sql: &str,

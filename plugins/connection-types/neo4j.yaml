@@ -13,6 +13,17 @@ metadataConnectionScoped: false
 skipTcpProbe: true
 defaultPort: 7687
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: agent
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: graph
+  provider: graph-metadata
+  scopeLevels:
+    - database
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -20,6 +31,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: false
   tableImport: false

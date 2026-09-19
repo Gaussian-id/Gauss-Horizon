@@ -10,9 +10,10 @@ use tokio::sync::{broadcast, Mutex, RwLock};
 use super::{
     InstalledPlugin, PluginBinaryMessage, PluginConnectionActionContribution, PluginConnectionCapability,
     PluginConnectionProviderContribution, PluginEvent, PluginFormFieldBinding, PluginFormFieldDefinition,
-    PluginFormFieldType, PluginRegistry, PluginRuntimeEnv, PluginSessionState, PluginSidecarSession,
-    PLUGIN_CONNECTION_ACTION_METHOD, PLUGIN_CONNECTION_CONNECT_METHOD, PLUGIN_CONNECTION_DISCONNECT_METHOD,
-    PLUGIN_CONNECTION_TEST_METHOD,
+    PluginFormFieldType, PluginRegistry, PluginRuntimeEnv, PluginSchemaViewerContribution, PluginSessionState,
+    PluginSidecarSession, PLUGIN_CONNECTION_ACTION_METHOD, PLUGIN_CONNECTION_CONNECT_METHOD,
+    PLUGIN_CONNECTION_DISCONNECT_METHOD, PLUGIN_CONNECTION_TEST_METHOD, PLUGIN_SCHEMA_VIEWER_DESCRIBE_METHOD,
+    PLUGIN_SCHEMA_VIEWER_SCOPES_METHOD, PLUGIN_SCHEMA_VIEWER_VIEW_METHOD,
 };
 
 #[derive(Debug, Clone, Serialize)]
@@ -69,6 +70,32 @@ impl PluginConnectionHandle {
             )
             .await?;
         ensure_plugin_operation_succeeded(result)
+    }
+
+    async fn invoke_schema_viewer(
+        &self,
+        method: &str,
+        request: serde_json::Value,
+    ) -> Result<serde_json::Value, String> {
+        let session = self.session.as_ref().ok_or("Plugin Schema Viewer runtime is not active")?;
+        let mut params = self.params.clone();
+        params
+            .as_object_mut()
+            .ok_or("Plugin connection params must be an object")?
+            .insert("schemaViewer".into(), request);
+        session.invoke_with_timeout(method, params, None, Some(super::PLUGIN_REQUEST_TIMEOUT)).await
+    }
+
+    pub async fn list_schema_viewer_scopes(&self, request: serde_json::Value) -> Result<serde_json::Value, String> {
+        self.invoke_schema_viewer(PLUGIN_SCHEMA_VIEWER_SCOPES_METHOD, request).await
+    }
+
+    pub async fn describe_schema_viewer(&self) -> Result<serde_json::Value, String> {
+        self.invoke_schema_viewer(PLUGIN_SCHEMA_VIEWER_DESCRIBE_METHOD, serde_json::json!({ "version": 1 })).await
+    }
+
+    pub async fn get_schema_view(&self, request: serde_json::Value) -> Result<serde_json::Value, String> {
+        self.invoke_schema_viewer(PLUGIN_SCHEMA_VIEWER_VIEW_METHOD, request).await
     }
 }
 
@@ -238,7 +265,8 @@ impl PluginHost {
         validate_plugin_connection_values(config, &provider)?;
         let params = plugin_connection_params(config, &provider, runtime_host, runtime_port)?;
         let needs_session = provider.has_capability(PluginConnectionCapability::Connect)
-            || provider.has_capability(PluginConnectionCapability::Disconnect);
+            || provider.has_capability(PluginConnectionCapability::Disconnect)
+            || provider.schema_viewer.is_some();
         let session = if needs_session {
             Some(self.activate(config.plugin_id.as_deref().unwrap_or_default()).await?)
         } else {
@@ -313,6 +341,14 @@ impl PluginHost {
         }
         active.sort_by(|left, right| left.plugin_id.cmp(&right.plugin_id));
         active
+    }
+
+    pub fn connection_schema_viewer(
+        &self,
+        config: &ConnectionConfig,
+    ) -> Result<Option<PluginSchemaViewerContribution>, String> {
+        let (_, provider) = self.resolve_connection_provider(config)?;
+        Ok(provider.schema_viewer)
     }
 
     pub async fn stop(&self, plugin_id: &str) {

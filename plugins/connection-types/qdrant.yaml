@@ -10,6 +10,18 @@ metadataConnectionScoped: false
 skipTcpProbe: false
 defaultPort: 6333
 supportLevel: browse
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: vector
+  provider: vector-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -17,6 +29,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

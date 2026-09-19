@@ -15,6 +15,18 @@ defaultPort: 443
 traits:
   schemaAware: true
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: agent
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: relational
+  provider: relational-metadata
+  scopeLevels:
+    - database
+    - schema
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -22,6 +34,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: false
   tableImport: false

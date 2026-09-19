@@ -229,24 +229,26 @@ pub async fn list_tables(client: &VictoriaMetricsClient) -> Result<Vec<TableInfo
         .collect())
 }
 
-pub async fn get_columns(client: &VictoriaMetricsClient, metric_name: &str) -> Result<Vec<ColumnInfo>, String> {
+fn label_names_metadata_request(client: &VictoriaMetricsClient, metric_name: &str) -> reqwest::RequestBuilder {
     let selector = metric_selector(metric_name);
-    let request = client.request(
+    client.request(
         client
             .http
-            .post(client.endpoint("/api/v1/series"))
+            .get(client.endpoint("/api/v1/labels"))
             .form(&[("match[]", selector.as_str()), ("start", format!("-{}", client.lookback).as_str())]),
-    );
-    let series =
-        parse_api_response::<Vec<HashMap<String, String>>>(request.send().await.map_err(request_error)?).await?;
-    let label_names = series
-        .iter()
-        .flat_map(|labels| labels.keys())
-        .filter(|name| name.as_str() != "__name__")
-        .cloned()
-        .collect::<BTreeSet<_>>();
+    )
+}
 
-    let label_names = label_names.into_iter().collect::<Vec<_>>();
+pub async fn get_columns(client: &VictoriaMetricsClient, metric_name: &str) -> Result<Vec<ColumnInfo>, String> {
+    // `/labels` returns label-name metadata only. Do not enumerate `/series`
+    // here: Schema Viewer must not inspect user series to infer dimensions.
+    let mut label_names = parse_api_response::<Vec<String>>(
+        label_names_metadata_request(client, metric_name).send().await.map_err(request_error)?,
+    )
+    .await?;
+    label_names.retain(|name| name != "__name__");
+    label_names.sort();
+    label_names.dedup();
     let (timestamp_name, value_name, metric_name) = result_column_names(&label_names);
     let mut columns = vec![
         column(&timestamp_name, "timestamp", false, true, Some("Sample timestamp")),
@@ -491,6 +493,25 @@ mod tests {
         .unwrap();
         assert_eq!(status.series_count_by_metric_name[0].name, "flag");
         assert_eq!(status.series_count_by_metric_name[0].value.as_str(), Some("276"));
+    }
+
+    #[test]
+    fn schema_metadata_uses_label_names_without_sampling_series() {
+        let config: ConnectionConfig = serde_json::from_value(json!({
+            "id": "metadata-only",
+            "name": "metadata-only",
+            "db_type": "victoriametrics",
+            "host": "localhost",
+            "port": 8428,
+            "username": "",
+            "password": ""
+        }))
+        .unwrap();
+        let client =
+            VictoriaMetricsClient::new_for_config("http://localhost:8428", &config, Duration::from_secs(1)).unwrap();
+        let request = label_names_metadata_request(&client, "cpu_usage").build().unwrap();
+        assert_eq!(request.url().path(), "/prometheus/api/v1/labels");
+        assert!(!request.url().path().contains("/series"));
     }
 
     #[test]

@@ -14,6 +14,18 @@ traits:
   databaseSchemaQualified: true
   treeSchema: true
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: jdbc
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: relational
+  provider: relational-metadata
+  scopeLevels:
+    - database
+    - schema
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -21,6 +33,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: false
   tableImport: false

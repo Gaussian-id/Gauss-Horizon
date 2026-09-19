@@ -20,6 +20,25 @@ pub enum DatabaseRuntimeMode {
     External,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DatabaseAccessContract {
+    pub connection_picker: String,
+    pub runtime_provider: String,
+    pub connect_supported: bool,
+    pub test_connection_supported: bool,
+    #[serde(default)]
+    pub required_features: Vec<String>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DatabaseSchemaViewerContract {
+    pub kind: String,
+    pub provider: String,
+    pub scope_levels: Vec<String>,
+}
+
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DatabaseDriverProfile {
@@ -76,6 +95,8 @@ pub struct DatabaseManifestEntry {
     pub local_file: bool,
     #[serde(default)]
     pub specialized_surface: bool,
+    pub access: DatabaseAccessContract,
+    pub schema_viewer: DatabaseSchemaViewerContract,
 }
 
 static DATABASE_MANIFEST: OnceLock<DatabaseManifestFile> = OnceLock::new();
@@ -141,5 +162,46 @@ mod tests {
         assert_eq!(entry(&DatabaseType::Postgres).map(|entry| entry.default_port), Some(Some(5432)));
         assert_eq!(entry(&DatabaseType::Sqlite).map(|entry| entry.skip_tcp_probe), Some(true));
         assert_eq!(entry(&DatabaseType::H2).map(|entry| entry.agent_key.as_deref()), Some(Some("h2")));
+        assert!(entries().iter().all(|entry| entry.access.connect_supported
+            && entry.access.test_connection_supported
+            && !entry.access.connection_picker.is_empty()
+            && !entry.access.runtime_provider.is_empty()));
+        assert!(entries().iter().all(|entry| !entry.schema_viewer.kind.is_empty()
+            && !entry.schema_viewer.provider.is_empty()
+            && !entry.schema_viewer.scope_levels.is_empty()));
+    }
+
+    #[test]
+    fn access_contracts_match_real_runtime_registration() {
+        for entry in entries() {
+            let provider = entry.access.runtime_provider.as_str();
+            match provider {
+                "native" => assert!(
+                    matches!(entry.runtime_mode, DatabaseRuntimeMode::Native | DatabaseRuntimeMode::File),
+                    "{} declares native access with {:?} runtime",
+                    entry.db_type.as_str(),
+                    entry.runtime_mode,
+                ),
+                "agent" => {
+                    assert_eq!(entry.runtime_mode, DatabaseRuntimeMode::Agent, "{}", entry.db_type.as_str());
+                    assert!(
+                        entry.agent_key.as_deref().is_some_and(|key| !key.is_empty()),
+                        "{}",
+                        entry.db_type.as_str()
+                    );
+                }
+                "jdbc" => assert_eq!(entry.runtime_mode, DatabaseRuntimeMode::External, "{}", entry.db_type.as_str()),
+                "external-plugin" => {
+                    assert_eq!(entry.runtime_mode, DatabaseRuntimeMode::External, "{}", entry.db_type.as_str());
+                    assert_eq!(entry.db_type, DatabaseType::Plugin);
+                }
+                "specialized-service" => assert!(
+                    matches!(entry.runtime_mode, DatabaseRuntimeMode::Native | DatabaseRuntimeMode::Agent),
+                    "{}",
+                    entry.db_type.as_str(),
+                ),
+                other => panic!("{} has unknown runtime provider {other}", entry.db_type.as_str()),
+            }
+        }
     }
 }

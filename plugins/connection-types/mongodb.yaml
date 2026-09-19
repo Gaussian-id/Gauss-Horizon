@@ -3,7 +3,7 @@ order: 110
 dbType: mongodb
 rustVariant: MongoDb
 label: MongoDB (Legacy)
-runtimeMode: agent
+runtimeMode: native
 mcpMode: bridge
 agentKey: mongodb
 driverStoreVisible: true
@@ -18,6 +18,18 @@ metadataConnectionScoped: false
 skipTcpProbe: true
 defaultPort: 27017
 supportLevel: connect
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: document
+  provider: document-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: false
@@ -25,6 +37,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

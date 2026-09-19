@@ -6633,7 +6633,7 @@ onUnmounted(() => {
                 <div class="settings-appearance-choice-grid settings-icon-theme-grid">
                   <Button type="button" variant="outline" class="settings-choice-card h-auto min-w-0 justify-start overflow-hidden whitespace-normal border p-3" :class="editIconTheme === 'default' ? 'chiron-horizon-choice-selected' : ''" @click="setIconTheme('default')">
                     <div class="flex w-full min-w-0 items-center gap-3 text-left">
-                      <img :src="webPath('/icon-preview-default.png')" alt="Chiron Horizon" class="h-12 w-12 shrink-0" />
+                      <img :src="webPath('/logo.png')" alt="Gauss logo" class="h-12 w-12 shrink-0" />
                       <div class="min-w-0 text-left">
                         <div class="text-sm font-medium">
                           {{ t("settings.iconThemeDefault") }}
@@ -6646,7 +6646,7 @@ onUnmounted(() => {
                   </Button>
                   <Button type="button" variant="outline" class="settings-choice-card h-auto min-w-0 justify-start overflow-hidden whitespace-normal border p-3" :class="editIconTheme === 'black' ? 'chiron-horizon-choice-selected' : ''" @click="setIconTheme('black')">
                     <div class="flex w-full min-w-0 items-center gap-3 text-left">
-                      <img :src="webPath('/icon-preview-black.png')" alt="Chiron Horizon" class="h-12 w-12 shrink-0" />
+                      <img :src="webPath('/logo-black.png')" alt="Gauss logo" class="h-12 w-12 shrink-0" />
                       <div class="min-w-0 text-left">
                         <div class="text-sm font-medium">
                           {{ t("settings.iconThemeBlack") }}

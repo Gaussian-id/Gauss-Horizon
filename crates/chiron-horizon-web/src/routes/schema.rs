@@ -37,6 +37,67 @@ pub struct DatabaseStorageRequest {
     pub databases: Vec<String>,
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SchemaViewerDescribeRequest {
+    pub connection_id: String,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SchemaViewerScopesRequest {
+    pub connection_id: String,
+    #[serde(default)]
+    pub parent: chiron_horizon_core::schema_viewer::SchemaViewScope,
+    pub search: Option<String>,
+    pub limit: Option<usize>,
+    pub offset: Option<usize>,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SchemaViewRequest {
+    pub connection_id: String,
+    pub scope: chiron_horizon_core::schema_viewer::SchemaViewScope,
+}
+
+pub async fn describe_schema_viewer(
+    State(state): State<Arc<WebState>>,
+    Json(req): Json<SchemaViewerDescribeRequest>,
+) -> Result<Json<chiron_horizon_core::schema_viewer::SchemaViewerDescriptor>, AppError> {
+    chiron_horizon_core::schema_viewer::describe_schema_viewer_core(&state.app, &req.connection_id)
+        .await
+        .map(Json)
+        .map_err(AppError::from)
+}
+
+pub async fn list_schema_viewer_scopes(
+    State(state): State<Arc<WebState>>,
+    Json(req): Json<SchemaViewerScopesRequest>,
+) -> Result<Json<chiron_horizon_core::schema_viewer::SchemaScopePage>, AppError> {
+    chiron_horizon_core::schema_viewer::list_schema_viewer_scopes_core(
+        &state.app,
+        &req.connection_id,
+        &req.parent,
+        req.search.as_deref(),
+        req.limit.unwrap_or(200),
+        req.offset.unwrap_or(0),
+    )
+    .await
+    .map(Json)
+    .map_err(AppError::from)
+}
+
+pub async fn get_schema_view(
+    State(state): State<Arc<WebState>>,
+    Json(req): Json<SchemaViewRequest>,
+) -> Result<Json<chiron_horizon_core::schema_viewer::SchemaViewResponse>, AppError> {
+    chiron_horizon_core::schema_viewer::get_schema_view_core(&state.app, &req.connection_id, req.scope)
+        .await
+        .map(Json)
+        .map_err(AppError::from)
+}
+
 pub async fn list_databases(
     State(state): State<Arc<WebState>>,
     Query(q): Query<SchemaQuery>,

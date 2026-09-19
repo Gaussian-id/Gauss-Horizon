@@ -883,6 +883,11 @@ async fn connection_database_type_for_pool_key(state: &AppState, pool_key: &str)
         .map(|(_, config)| config.db_type)
 }
 
+async fn connection_driver_profile_for_pool_key(state: &AppState, pool_key: &str) -> Option<String> {
+    let configs = state.configs.read().await;
+    crate::connection::config_for_pool_key(pool_key, &configs).and_then(|config| config.driver_profile.clone())
+}
+
 fn schema_for_execution_context(db_type: Option<DatabaseType>, schema: Option<&str>) -> Option<&str> {
     // SQL Server has no session-level schema switch. Data-grid DML already uses
     // qualified names, while legacy jTDS can mis-handle schema as catalog.
@@ -1875,8 +1880,9 @@ fn query_pool_database<'a>(database: &'a str, catalog: Option<&str>) -> Option<&
     }
 }
 
-fn postgres_prefers_text_protocol(db_type: Option<DatabaseType>) -> bool {
+fn postgres_prefers_text_protocol(db_type: Option<DatabaseType>, driver_profile: Option<&str>) -> bool {
     db_type == Some(DatabaseType::Redshift)
+        || driver_profile.is_some_and(|profile| profile.eq_ignore_ascii_case("chirondb-relational"))
 }
 
 pub async fn operation_budget_for_pool_key(
@@ -1954,6 +1960,7 @@ async fn do_execute_typed(
     check_read_only_for_connection(state, pool_key, sql).await?;
     let operation_budget = operation_budget_for_pool_key(state, pool_key, query_timeout).await;
     let pool_db_type = connection_database_type_for_pool_key(state, pool_key).await;
+    let pool_driver_profile = connection_driver_profile_for_pool_key(state, pool_key).await;
     let mysql_catalog_dialect = connection_mysql_catalog_dialect_for_pool_key(state, pool_key).await;
     let pool = state.pool_handle(pool_key).await.ok_or("Connection not found")?;
 
@@ -2060,7 +2067,7 @@ async fn do_execute_typed(
             let p = p.clone();
             let schema = schema.map(|s| s.to_string());
             let max_rows = options.max_rows;
-            let prefer_text_protocol = postgres_prefers_text_protocol(pool_db_type);
+            let prefer_text_protocol = postgres_prefers_text_protocol(pool_db_type, pool_driver_profile.as_deref());
             let execution_mode = options.execution_mode;
             let cancel_context = state.get_postgres_cancel_context(pool_key).await;
             let result = execute_postgres_pool_statement(
@@ -6854,9 +6861,10 @@ mod tests {
 
     #[test]
     fn redshift_queries_prefer_text_protocol() {
-        assert!(postgres_prefers_text_protocol(Some(DatabaseType::Redshift)));
-        assert!(!postgres_prefers_text_protocol(Some(DatabaseType::Postgres)));
-        assert!(!postgres_prefers_text_protocol(None));
+        assert!(postgres_prefers_text_protocol(Some(DatabaseType::Redshift), None));
+        assert!(postgres_prefers_text_protocol(Some(DatabaseType::Postgres), Some("chirondb-relational")));
+        assert!(!postgres_prefers_text_protocol(Some(DatabaseType::Postgres), None));
+        assert!(!postgres_prefers_text_protocol(None, None));
     }
 
     #[test]

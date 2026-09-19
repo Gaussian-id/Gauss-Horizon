@@ -920,6 +920,7 @@ export interface EditorSettings {
 }
 
 export interface ToolbarItems {
+  schemaViewer: boolean;
   dataTransfer: boolean;
   driverManager: boolean;
   pluginCenter: boolean;
@@ -937,6 +938,7 @@ export interface ToolbarItems {
 }
 
 export const DEFAULT_TOOLBAR_ITEMS: ToolbarItems = {
+  schemaViewer: true,
   dataTransfer: true,
   driverManager: true,
   pluginCenter: true,
@@ -1415,6 +1417,7 @@ function normalizeToolbarItems(items: Partial<ToolbarItems> | undefined): Toolba
   const defaults = DEFAULT_TOOLBAR_ITEMS;
   if (!items || typeof items !== "object") return { ...defaults };
   return {
+    schemaViewer: items.schemaViewer ?? defaults.schemaViewer,
     dataTransfer: items.dataTransfer ?? defaults.dataTransfer,
     driverManager: items.driverManager ?? defaults.driverManager,
     pluginCenter: items.pluginCenter ?? defaults.pluginCenter,

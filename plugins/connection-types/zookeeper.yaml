@@ -13,6 +13,18 @@ metadataConnectionScoped: false
 skipTcpProbe: true
 defaultPort: 2181
 supportLevel: connect
+access:
+  connectionPicker: direct
+  runtimeProvider: specialized-service
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: service
+  provider: service-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   # ZooKeeper has no SQL engine and its agent exposes only kv_* operations:
   # no list_databases or query method exists, so query execution and schema
@@ -24,6 +36,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

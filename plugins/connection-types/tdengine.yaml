@@ -13,6 +13,18 @@ metadataConnectionScoped: false
 skipTcpProbe: true
 defaultPort: 6041
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: agent
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: timeseries
+  provider: timeseries-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -20,6 +32,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: false
   tableImport: false

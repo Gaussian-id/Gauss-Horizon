@@ -14,6 +14,19 @@ traits:
   treeSchema: true
   databaseObjectTree: true
 supportLevel: browse
+access:
+  connectionPicker: direct
+  runtimeProvider: jdbc
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: dynamic
+  provider: runtime-handshake
+  scopeLevels:
+    - database
+    - schema
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -21,6 +34,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

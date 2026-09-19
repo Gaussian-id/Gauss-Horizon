@@ -7,6 +7,15 @@ profiles:
     port: 7401
     user: ""
     category: graph_ai
+  - id: chirondb-relational
+    dbType: postgres
+    label: ChironDB Relational
+    pickerLabel: ChironDB Relational (PostgreSQL wire)
+    icon: chirondb
+    port: 7403
+    user: chiron
+    urlParams: sslmode=disable
+    category: graph_ai
   - id: mysql
     dbType: mysql
     label: MySQL
@@ -374,7 +383,7 @@ profiles:
     user: vastbase
     category: domestic
   - id: doris
-    dbType: mysql
+    dbType: doris
     label: Doris
     icon: doris
     port: 9030
@@ -390,7 +399,7 @@ profiles:
     urlParams: ""
     category: analytics
   - id: starrocks
-    dbType: mysql
+    dbType: starrocks
     label: StarRocks
     icon: starrocks
     port: 9030

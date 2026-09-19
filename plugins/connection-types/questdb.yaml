@@ -15,6 +15,18 @@ traits:
   pgLikeStructure: true
   diagramSql: true
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: timeseries
+  provider: timeseries-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -22,6 +34,7 @@ capabilities:
   objectSource: true
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: true
   tableImport: true

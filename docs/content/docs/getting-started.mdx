@@ -5,19 +5,19 @@ description: Install Chiron Horizon Desktop, create your first connection, and b
 
 # Get Started
 
-Chiron Horizon 0.1.1 is distributed from [GitHub Releases](https://github.com/Gaussian-id/Chiron-Horizon/releases). Download the asset for your platform, compare its SHA-256 with `SHA256SUMS`, then install it locally. Application auto-update and npm distribution are not enabled in this release.
+Chiron Horizon 0.1.2 is distributed from [GitHub Releases](https://github.com/Gaussian-id/Chiron-Horizon/releases). Download the asset for your platform, compare its SHA-256 with `SHA256SUMS`, then install it locally. Application auto-update and npm distribution are not enabled in this release.
 
 ## Install the desktop application
 
 | Platform | Asset | Install |
 | --- | --- | --- |
-| macOS Apple Silicon | `Chiron-Horizon_0.1.1_macos-arm64.dmg` | Open the DMG and drag **Chiron Horizon** into Applications. |
-| macOS Intel | `Chiron-Horizon_0.1.1_macos-x64.dmg` | Open the DMG and drag **Chiron Horizon** into Applications. |
-| Windows 10/11 x64 | `Chiron-Horizon_0.1.1_windows-x64-setup.exe` | Run the NSIS installer. SmartScreen may require **More info → Run anyway**. |
-| Ubuntu 22.04+ x64 | `Chiron-Horizon_0.1.1_linux-x64.deb` | Run `sudo apt install ./Chiron-Horizon_0.1.1_linux-x64.deb`. |
-| Ubuntu 22.04+ x64 | `Chiron-Horizon_0.1.1_linux-x64.AppImage` | Run `chmod +x Chiron-Horizon_0.1.1_linux-x64.AppImage`, then open it. |
+| macOS Apple Silicon | `Chiron-Horizon_0.1.2_macos-arm64.dmg` | Open the DMG and drag **Chiron Horizon** into Applications. |
+| macOS Intel | `Chiron-Horizon_0.1.2_macos-x64.dmg` | Open the DMG and drag **Chiron Horizon** into Applications. |
+| Windows 10/11 x64 | `Chiron-Horizon_0.1.2_windows-x64-setup.exe` | Run the NSIS installer. SmartScreen may require **More info → Run anyway**. |
+| Ubuntu 22.04+ x64 | `Chiron-Horizon_0.1.2_linux-x64.deb` | Run `sudo apt install ./Chiron-Horizon_0.1.2_linux-x64.deb`. |
+| Ubuntu 22.04+ x64 | `Chiron-Horizon_0.1.2_linux-x64.AppImage` | Run `chmod +x Chiron-Horizon_0.1.2_linux-x64.AppImage`, then open it. |
 
-The macOS bundles are ad-hoc signed for bundle integrity rather than notarized. Gatekeeper may require an explicit confirmation. The Windows installer is unsigned in 0.1.1, so SmartScreen confirmation is expected.
+The macOS bundles are ad-hoc signed for bundle integrity rather than notarized. Gatekeeper may require an explicit confirmation. The Windows installer is unsigned in 0.1.2, so SmartScreen confirmation is expected.
 
 ## Verify the download
 
@@ -30,7 +30,7 @@ sha256sum -c SHA256SUMS
 
 ```powershell
 # Windows PowerShell
-Get-FileHash .\Chiron-Horizon_0.1.1_windows-x64-setup.exe -Algorithm SHA256
+Get-FileHash .\Chiron-Horizon_0.1.2_windows-x64-setup.exe -Algorithm SHA256
 ```
 
 The release also includes `agent-registry.json`, managed JRE 21 archives, individual Agent packages, and offline Agent bundles for databases that need an Agent. The application downloads Agent material only from the Chiron Horizon GitHub Release; it has no application updater or mirror fallback.

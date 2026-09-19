@@ -4,6 +4,43 @@ use tauri::State;
 use crate::commands::connection::AppState;
 use chiron_horizon_core::db;
 
+#[tauri::command]
+pub async fn describe_schema_viewer(
+    state: State<'_, Arc<AppState>>,
+    connection_id: String,
+) -> Result<chiron_horizon_core::schema_viewer::SchemaViewerDescriptor, String> {
+    chiron_horizon_core::schema_viewer::describe_schema_viewer_core(&state, &connection_id).await
+}
+
+#[tauri::command]
+pub async fn list_schema_viewer_scopes(
+    state: State<'_, Arc<AppState>>,
+    connection_id: String,
+    parent: chiron_horizon_core::schema_viewer::SchemaViewScope,
+    search: Option<String>,
+    limit: Option<usize>,
+    offset: Option<usize>,
+) -> Result<chiron_horizon_core::schema_viewer::SchemaScopePage, String> {
+    chiron_horizon_core::schema_viewer::list_schema_viewer_scopes_core(
+        &state,
+        &connection_id,
+        &parent,
+        search.as_deref(),
+        limit.unwrap_or(200),
+        offset.unwrap_or(0),
+    )
+    .await
+}
+
+#[tauri::command]
+pub async fn get_schema_view(
+    state: State<'_, Arc<AppState>>,
+    connection_id: String,
+    scope: chiron_horizon_core::schema_viewer::SchemaViewScope,
+) -> Result<chiron_horizon_core::schema_viewer::SchemaViewResponse, String> {
+    chiron_horizon_core::schema_viewer::get_schema_view_core(&state, &connection_id, scope).await
+}
+
 /// Resolve a non-internal catalog for dispatch to the Doris multi-catalog path.
 /// Thin wrapper around the shared chiron-horizon-core resolver so the Tauri and HTTP
 /// backends stay in sync.

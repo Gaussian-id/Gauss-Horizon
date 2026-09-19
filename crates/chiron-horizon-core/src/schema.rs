@@ -193,6 +193,10 @@ fn mysql_database_list_timeout(config: Option<&ConnectionConfig>) -> Duration {
         .unwrap_or_else(db::connection_timeout)
 }
 
+pub(crate) fn is_chirondb_relational_config(config: &ConnectionConfig) -> bool {
+    config.driver_profile.as_deref().is_some_and(|profile| profile.eq_ignore_ascii_case("chirondb-relational"))
+}
+
 pub async fn list_databases_core(state: &AppState, connection_id: &str) -> Result<Vec<db::DatabaseInfo>, String> {
     retry_metadata_connection(state, connection_id, None, || list_databases_once(state, connection_id)).await
 }
@@ -712,6 +716,12 @@ pub async fn resolve_external_doris_catalog(
 async fn list_databases_once(state: &AppState, connection_id: &str) -> Result<Vec<db::DatabaseInfo>, String> {
     log::info!("[list_databases] connection_id={connection_id}");
     let db_config = connection_config(state, connection_id).await;
+    if let Some(config) = db_config.as_ref().filter(|config| is_chirondb_relational_config(config)) {
+        return Ok(vec![db::DatabaseInfo {
+            name: config.database.clone().filter(|value| !value.trim().is_empty()).unwrap_or_else(|| "gaussdb".into()),
+            ..Default::default()
+        }]);
+    }
     {
         let pool_handle = state.pool_handle(connection_id).await;
         if let Some(PoolKind::ExternalDriver { config, session, .. }) = pool_handle.as_ref() {
@@ -909,6 +919,9 @@ async fn list_schemas_once(
 ) -> Result<Vec<String>, String> {
     let pool_key = state.get_or_create_metadata_pool_for_session(connection_id, Some(database), None).await?;
     let db_config = connection_config(state, connection_id).await;
+    if db_config.as_ref().is_some_and(is_chirondb_relational_config) {
+        return Ok(vec!["public".to_string()]);
+    }
     let show_system_schemas = db_config.as_ref().is_some_and(|config| config.show_system_schemas);
     let visible_schema_filter = visible_schema_filter(db_config.as_ref(), database, apply_visible_filter);
 
@@ -2706,6 +2719,11 @@ async fn list_tables_once(
             } else {
                 db::cloudberry::list_tables_filtered(p, schema, filter, limit, offset).await
             }
+        }
+        PoolKind::Postgres(p) if db_config.as_ref().is_some_and(is_chirondb_relational_config) => {
+            db::postgres::list_chirondb_relational_tables(p, schema)
+                .await
+                .map(|tables| filter_table_infos(tables, filter, limit, offset, object_types, table_name_filter))
         }
         PoolKind::Postgres(p) => {
             if requests_table_objects_only(object_types) && table_name_filter.is_none_or(TableNameFilter::is_empty) {
@@ -7368,6 +7386,9 @@ async fn get_columns_core_for_session_inner(
             {
                 db::postgres::get_redshift_columns(p, schema, table).await.map(deduplicate_column_infos)
             }
+            PoolKind::Postgres(p) if db_config.as_ref().is_some_and(is_chirondb_relational_config) => {
+                db::postgres::get_chirondb_relational_columns(p, schema, table).await.map(deduplicate_column_infos)
+            }
             PoolKind::Postgres(p) => db::postgres::get_columns(p, schema, table).await.map(deduplicate_column_infos),
             PoolKind::Sqlite(p) => db::sqlite::get_columns(p, schema, table).await.map(deduplicate_column_infos),
             PoolKind::Rqlite(client) => {
@@ -7638,6 +7659,7 @@ async fn list_indexes_core_for_session(
             {
                 Ok(vec![])
             }
+            PoolKind::Postgres(_) if db_config.as_ref().is_some_and(is_chirondb_relational_config) => Ok(vec![]),
             PoolKind::Postgres(p) => db::postgres::list_indexes(p, schema, table).await,
             PoolKind::Sqlite(p) => db::sqlite::list_indexes(p, schema, table).await,
             PoolKind::Rqlite(client) => db::rqlite_driver::list_indexes(client, schema, table).await,
@@ -7712,6 +7734,7 @@ async fn list_foreign_keys_core_for_session(
             PoolKind::Postgres(p) if db_config.as_ref().is_some_and(is_opengauss_constraint_config) => {
                 db::postgres::list_opengauss_foreign_keys(p, schema, table).await
             }
+            PoolKind::Postgres(_) if db_config.as_ref().is_some_and(is_chirondb_relational_config) => Ok(vec![]),
             PoolKind::Postgres(p) => db::postgres::list_foreign_keys(p, schema, table).await,
             PoolKind::Sqlite(p) => db::sqlite::list_foreign_keys(p, schema, table).await,
             PoolKind::Rqlite(client) => db::rqlite_driver::list_foreign_keys(client, schema, table).await,

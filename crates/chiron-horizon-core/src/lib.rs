@@ -92,6 +92,7 @@ pub mod runtime_config;
 pub mod saved_sql;
 pub mod schema;
 pub mod schema_diff;
+pub mod schema_viewer;
 pub mod script_generator;
 pub mod session_credentials;
 pub mod sql;

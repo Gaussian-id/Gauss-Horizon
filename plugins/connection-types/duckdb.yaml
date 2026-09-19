@@ -19,6 +19,19 @@ traits:
   schemaAware: true
   treeSchema: true
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures:
+    - duckdb-sidecar
+schemaViewer:
+  kind: relational
+  provider: relational-metadata
+  scopeLevels:
+    - database
+    - schema
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -26,6 +39,7 @@ capabilities:
   objectSource: true
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: true
   tableImport: true

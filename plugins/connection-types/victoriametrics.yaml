@@ -12,6 +12,18 @@ defaultPort: 8428
 traits:
   singleDatabase: true
 supportLevel: browse
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: timeseries
+  provider: timeseries-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -19,6 +31,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

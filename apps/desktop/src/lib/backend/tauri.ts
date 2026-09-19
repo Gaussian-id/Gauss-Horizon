@@ -19,6 +19,7 @@ import { decodeMeilisearchDocumentPage, decodeMeilisearchSearchResult, type Meil
 import type { XuguTablespaceInfo } from "@/types/database";
 import type { CreatedKey, EnqueuedTaskSummary, KeyCreateInput, KeyListItem, KeyPage, KeyUpdateInput, MeilisearchSystemOverview, MeilisearchTask, TaskListInput, TaskPage, TaskSelector } from "@/types/meilisearchManagement";
 import type { CsvQuoteMode } from "@/lib/export/csvQuoteMode";
+import type { SchemaScopePage, SchemaViewResponse, SchemaViewScope, SchemaViewerDescriptor } from "@/lib/database/schemaViewer";
 import type { SqlInsertMode } from "@/lib/export/sqlInsertMode";
 
 /** Normalize Tauri rejections once at the public backend boundary. */
@@ -1358,6 +1359,18 @@ export async function listTables(connectionId: string, database: string, schema:
     catalog,
     tableNameFilter,
   });
+}
+
+export async function describeSchemaViewer(connectionId: string): Promise<SchemaViewerDescriptor> {
+  return invoke("describe_schema_viewer", { connectionId });
+}
+
+export async function listSchemaViewerScopes(connectionId: string, parent: SchemaViewScope = {}, search?: string, limit = 200, offset = 0): Promise<SchemaScopePage> {
+  return invoke("list_schema_viewer_scopes", { connectionId, parent, search, limit, offset });
+}
+
+export async function getSchemaView(connectionId: string, scope: SchemaViewScope): Promise<SchemaViewResponse> {
+  return invoke("get_schema_view", { connectionId, scope });
 }
 
 export async function getTableComment(connectionId: string, database: string, schema: string, table: string, catalog?: string): Promise<string | null> {

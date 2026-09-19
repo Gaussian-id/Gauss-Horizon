@@ -16,6 +16,18 @@ traits:
   schemaAware: true
   treeSchema: true
 supportLevel: understand
+access:
+  connectionPicker: merged-profile
+  runtimeProvider: agent
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: relational
+  provider: relational-metadata
+  scopeLevels:
+    - database
+    - schema
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -23,6 +35,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

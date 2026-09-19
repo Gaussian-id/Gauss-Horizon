@@ -10,6 +10,19 @@ metadataConnectionScoped: false
 skipTcpProbe: false
 defaultPort: 8000
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures:
+    - dynamodb
+schemaViewer:
+  kind: document
+  provider: document-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: false
   metadataBrowse: true
@@ -17,6 +30,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: true
   tableStructureEdit: false
   tableImport: false

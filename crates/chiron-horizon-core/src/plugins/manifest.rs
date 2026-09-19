@@ -13,12 +13,15 @@ pub const SUPPORTED_PLUGIN_MANIFEST_VERSION: u32 = 1;
 /// `host.requestUserInput` entry in `host.features`) before calling it.
 pub const SUPPORTED_PLUGIN_HOST_API_VERSION: &str = "1.1.0";
 /// Capabilities the host advertises to a plugin backend at `plugin/initialize`.
-pub const SUPPORTED_PLUGIN_HOST_FEATURES: &[&str] = &["host.requestUserInput"];
+pub const SUPPORTED_PLUGIN_HOST_FEATURES: &[&str] = &["host.requestUserInput", "connection.schemaViewer.v1"];
 pub const SUPPORTED_PLUGIN_PROTOCOL_VERSION: u32 = 1;
 pub const PLUGIN_CONNECTION_TEST_METHOD: &str = "connection/test";
 pub const PLUGIN_CONNECTION_CONNECT_METHOD: &str = "connection/connect";
 pub const PLUGIN_CONNECTION_DISCONNECT_METHOD: &str = "connection/disconnect";
 pub const PLUGIN_CONNECTION_ACTION_METHOD: &str = "connection/action";
+pub const PLUGIN_SCHEMA_VIEWER_DESCRIBE_METHOD: &str = "connection/schemaViewer/describe";
+pub const PLUGIN_SCHEMA_VIEWER_SCOPES_METHOD: &str = "connection/schemaViewer/listScopes";
+pub const PLUGIN_SCHEMA_VIEWER_VIEW_METHOD: &str = "connection/schemaViewer/getView";
 pub const SUPPORTED_PLUGIN_PERMISSIONS: &[&str] = &["host.events", "host.binary", "host.workbench", "host.filesystem"];
 
 /// Cap the number of `host.network:<origin>` entries so a manifest cannot bloat
@@ -560,6 +563,23 @@ pub struct PluginConnectionProviderContribution {
     pub capabilities: Vec<PluginConnectionCapability>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub actions: Vec<PluginConnectionActionContribution>,
+    /// Optional normalized, metadata-only Schema Viewer contract. Providers
+    /// that omit it remain connectable but are not advertised in the viewer.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub schema_viewer: Option<PluginSchemaViewerContribution>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PluginSchemaViewerContribution {
+    pub kind: String,
+    #[serde(default = "default_plugin_schema_provider")]
+    pub provider: String,
+    pub scope_levels: Vec<String>,
+}
+
+fn default_plugin_schema_provider() -> String {
+    "plugin-runtime".to_string()
 }
 
 impl PluginConnectionProviderContribution {
@@ -1084,6 +1104,38 @@ fn validate_contributions(
                 }
                 if (!provider.capabilities.is_empty() || !provider.actions.is_empty()) && !has_backend {
                     errors.push(format!("Connection provider '{id}' declares backend operations without a backend"));
+                }
+                if let Some(schema_viewer) = &provider.schema_viewer {
+                    // A plugin handshake must resolve the manifest's dynamic
+                    // placeholder to a concrete renderer/payload contract.
+                    const KINDS: &[&str] = &[
+                        "relational",
+                        "document",
+                        "graph",
+                        "hybrid",
+                        "vector",
+                        "timeseries",
+                        "wide-column",
+                        "key-value",
+                        "service",
+                    ];
+                    const SCOPES: &[&str] = &["catalog", "database", "schema", "object"];
+                    if !KINDS.contains(&schema_viewer.kind.as_str()) {
+                        errors.push(format!("Connection provider '{id}' has an invalid schemaViewer kind"));
+                    }
+                    if schema_viewer.provider.trim().is_empty() {
+                        errors.push(format!("Connection provider '{id}' schemaViewer provider is required"));
+                    }
+                    if schema_viewer.scope_levels.is_empty()
+                        || schema_viewer.scope_levels.iter().any(|scope| !SCOPES.contains(&scope.as_str()))
+                    {
+                        errors.push(format!("Connection provider '{id}' has invalid schemaViewer scopeLevels"));
+                    }
+                    if !has_backend {
+                        errors.push(format!(
+                            "Connection provider '{id}' declares Schema Viewer support without a backend"
+                        ));
+                    }
                 }
                 validate_connection_actions(&provider.actions, id, errors);
             }
@@ -2400,5 +2452,28 @@ mod tests {
         .is_err());
         assert!(serde_json::from_value::<super::PluginFieldCondition>(serde_json::json!({})).is_err());
         assert!(serde_json::from_value::<super::PluginFieldCondition>(serde_json::json!({ "not": 1 })).is_err());
+    }
+
+    #[test]
+    fn plugin_schema_viewer_contract_is_explicit_and_backward_compatible() {
+        let provider: PluginConnectionProviderContribution = serde_json::from_value(serde_json::json!({
+            "id": "example.connection",
+            "database_type": "example",
+            "schema_viewer": {
+                "kind": "document",
+                "scopeLevels": ["database", "object"]
+            }
+        }))
+        .unwrap();
+        let schema = provider.schema_viewer.unwrap();
+        assert_eq!(schema.kind, "document");
+        assert_eq!(schema.provider, "plugin-runtime");
+
+        let legacy: PluginConnectionProviderContribution = serde_json::from_value(serde_json::json!({
+            "id": "legacy.connection",
+            "database_type": "legacy"
+        }))
+        .unwrap();
+        assert!(legacy.schema_viewer.is_none());
     }
 }

@@ -9,6 +9,20 @@ singleConnectionPool: false
 metadataConnectionScoped: false
 skipTcpProbe: true
 supportLevel: connect
+access:
+  connectionPicker: plugin-provided
+  runtimeProvider: external-plugin
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: dynamic
+  provider: runtime-handshake
+  scopeLevels:
+    - catalog
+    - database
+    - schema
+    - object
 specializedSurface: true
 capabilities:
   queryExecution: false
@@ -17,6 +31,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

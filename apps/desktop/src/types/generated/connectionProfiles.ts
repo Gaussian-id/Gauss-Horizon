@@ -21,6 +21,7 @@ export interface ConnectionPickerOption {
 
 export const CONNECTION_PROFILES = {
   chirondb: { type: "chirondb", port: 7401, user: "", label: "ChironDB", icon: "chirondb" },
+  "chirondb-relational": { type: "postgres", port: 7403, user: "chiron", label: "ChironDB Relational", icon: "chirondb", urlParams: "sslmode=disable" },
   mysql: { type: "mysql", port: 3306, user: "root", label: "MySQL", icon: "mysql", urlParams: "" },
   postgres: { type: "postgres", port: 5432, user: "postgres", label: "PostgreSQL", icon: "postgres", urlParams: "" },
   cloudberry: { type: "postgres", port: 5432, user: "postgres", label: "Apache Cloudberry", icon: "cloudberry", urlParams: "" },
@@ -73,9 +74,9 @@ export const CONNECTION_PROFILES = {
   uxdb: { type: "uxdb", port: 52025, user: "uxdb", label: "UXDB", icon: "uxdb" },
   yashandb: { type: "yashandb", port: 1688, user: "sys", label: "YashanDB", icon: "yashandb" },
   vastbase: { type: "vastbase", port: 5432, user: "vastbase", label: "Vastbase", icon: "vastbase" },
-  doris: { type: "mysql", port: 9030, user: "root", label: "Doris", icon: "doris", urlParams: "" },
+  doris: { type: "doris", port: 9030, user: "root", label: "Doris", icon: "doris", urlParams: "" },
   selectdb: { type: "mysql", port: 9030, user: "root", label: "SelectDB", icon: "selectdb", urlParams: "" },
-  starrocks: { type: "mysql", port: 9030, user: "root", label: "StarRocks", icon: "starrocks", urlParams: "" },
+  starrocks: { type: "starrocks", port: 9030, user: "root", label: "StarRocks", icon: "starrocks", urlParams: "" },
   manticoresearch: { type: "manticoresearch", port: 9306, user: "root", label: "Manticore Search", icon: "manticoresearch", urlParams: "" },
   redshift: { type: "redshift", port: 5439, user: "awsuser", label: "Redshift", icon: "redshift" },
   cockroachdb: { type: "postgres", port: 26257, user: "root", label: "CockroachDB", icon: "cockroachdb" },
@@ -129,6 +130,7 @@ export const CONNECTION_PROFILES = {
 
 export const CONNECTION_PROFILE_ICONS = {
   chirondb: "chirondb",
+  "chirondb-relational": "chirondb",
   mysql: "mysql",
   postgres: "postgres",
   cloudberry: "cloudberry",
@@ -237,6 +239,7 @@ export const CONNECTION_PROFILE_ICONS = {
 
 export const CONNECTION_PICKER_OPTIONS = [
   { value: "chirondb", label: "ChironDB", category: "graph_ai" },
+  { value: "chirondb-relational", label: "ChironDB Relational (PostgreSQL wire)", category: "graph_ai" },
   { value: "mysql", label: "MySQL", category: "sql" },
   { value: "postgres", label: "PostgreSQL", category: "sql" },
   { value: "cloudberry", label: "Apache Cloudberry", category: "analytics" },

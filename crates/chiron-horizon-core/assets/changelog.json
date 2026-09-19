@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-09-18",
+  "updatedAt": "2026-09-19",
   "releases": [{
+    "tag": "v0.1.2",
+    "name": "Chiron Horizon 0.1.2",
+    "date": "2026-09-19",
+    "unreleased": true,
+    "sections": [
+      {"type": "added", "title": "Context-aware schema inspection", "items": [
+        {"title": "Schema Viewer", "desc": "Added relational ERDs, graph metagraphs, declared document JSON trees, metadata summaries, and ChironDB composite facets."},
+        {"title": "Complete access registration", "desc": "All 82 connection types and 106 product/version profiles now declare picker, runtime, connect, test-connection, and viewer contracts."},
+        {"title": "ChironDB relational profile", "desc": "Added a PostgreSQL-wire profile and internally verified DDL, DML, joins, table discovery, and column discovery."}
+      ]},
+      {"type": "improved", "title": "Metadata safety and release operation", "items": [
+        {"title": "Native metadata only", "desc": "Schema discovery does not infer structures by sampling documents, objects, values, messages, or payloads."},
+        {"title": "GitHub-backed release information", "desc": "The app periodically reads canonical release and changelog data from GitHub with a bundled offline fallback."},
+        {"title": "Gauss logo", "desc": "The Settings appearance preview now uses the Gauss logo."}
+      ]}
+    ]
+  }, {
     "tag": "v0.1.1",
     "name": "Chiron Horizon 0.1.1",
     "date": "2026-09-18",
@@ -13,8 +30,7 @@
   }, {
     "tag": "v0.1.0",
     "name": "Chiron Horizon 0.1.0",
-    "date": "",
-    "unreleased": true,
+    "date": "2026-09-17",
     "sections": [
       {"type": "added", "title": "Initial Chiron Horizon version", "items": [
         {"title": "Chiron Horizon", "desc": "Chiron Horizon branding, native ChironDB connections and preserved profile migration."},
@@ -22,7 +38,7 @@
         {"title": "ChironQL scripts", "desc": "Sequential statement results, per-write review, Run-local USE context and line-comment shortcuts."}
       ]},
       {"type": "changed", "title": "Distribution", "items": [
-        {"title": "Version numbering starts at 0.1.0", "desc": "Development build. Publication and automatic updates are disabled; platform acceptance is tracked separately."}
+        {"title": "Version numbering starts at 0.1.0", "desc": "First public release on the Chiron Horizon 0.1.x line."}
       ]}
     ]
   }]

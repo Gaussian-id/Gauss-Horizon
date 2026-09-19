@@ -3,7 +3,7 @@ order: 750
 dbType: influxdb
 rustVariant: InfluxDb
 label: InfluxDB
-runtimeMode: agent
+runtimeMode: native
 mcpMode: bridge
 agentKey: influxdb
 driverStoreVisible: false
@@ -12,6 +12,18 @@ metadataConnectionScoped: false
 skipTcpProbe: true
 defaultPort: 8086
 supportLevel: connect
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: timeseries
+  provider: timeseries-metadata
+  scopeLevels:
+    - database
+    - object
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -19,6 +31,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

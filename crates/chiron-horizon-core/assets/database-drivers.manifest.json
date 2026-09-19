@@ -15,6 +15,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -22,6 +37,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -52,6 +68,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -59,6 +90,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -93,6 +125,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -100,6 +147,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -126,6 +174,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -133,6 +196,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -159,6 +223,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -166,6 +245,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -192,6 +272,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -199,6 +294,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": true,
@@ -221,6 +317,21 @@
       "skipTcpProbe": false,
       "defaultPort": 6379,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "key-value",
+        "provider": "key-value-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": false,
@@ -228,6 +339,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -263,6 +375,23 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": [
+          "duckdb-sidecar"
+        ]
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -270,6 +399,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -293,6 +423,21 @@
       "skipTcpProbe": false,
       "defaultPort": 8123,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -300,6 +445,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -338,6 +484,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -345,6 +506,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -360,7 +522,7 @@
     {
       "dbType": "mongodb",
       "label": "MongoDB (Legacy)",
-      "runtimeMode": "agent",
+      "runtimeMode": "native",
       "mcpMode": "bridge",
       "agentKey": "mongodb",
       "driverStoreVisible": true,
@@ -378,6 +540,21 @@
       "skipTcpProbe": true,
       "defaultPort": 27017,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "document",
+        "provider": "document-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": false,
@@ -385,6 +562,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -407,6 +585,23 @@
       "skipTcpProbe": false,
       "defaultPort": 8000,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": [
+          "dynamodb"
+        ]
+      },
+      "schemaViewer": {
+        "kind": "document",
+        "provider": "document-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": false,
         "metadataBrowse": true,
@@ -414,6 +609,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -461,6 +657,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -468,6 +679,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -490,6 +702,21 @@
       "skipTcpProbe": false,
       "defaultPort": 9200,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "document",
+        "provider": "document-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": false,
@@ -497,6 +724,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -519,6 +747,21 @@
       "skipTcpProbe": false,
       "defaultPort": 9200,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "document",
+        "provider": "document-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": false,
@@ -526,6 +769,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -548,6 +792,21 @@
       "skipTcpProbe": false,
       "defaultPort": 7700,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "document",
+        "provider": "document-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -555,6 +814,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -577,6 +837,21 @@
       "skipTcpProbe": false,
       "defaultPort": 8080,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "wide-column",
+        "provider": "wide-column-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": false,
         "metadataBrowse": true,
@@ -584,6 +859,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -606,6 +882,21 @@
       "skipTcpProbe": false,
       "defaultPort": 6333,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "vector",
+        "provider": "vector-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -613,6 +904,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -635,6 +927,21 @@
       "skipTcpProbe": false,
       "defaultPort": 7401,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "hybrid",
+        "provider": "hybrid-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -642,6 +949,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -664,6 +972,21 @@
       "skipTcpProbe": false,
       "defaultPort": 8000,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "vector",
+        "provider": "vector-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -671,6 +994,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -693,6 +1017,21 @@
       "skipTcpProbe": false,
       "defaultPort": 19530,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "vector",
+        "provider": "vector-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -700,6 +1039,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -722,6 +1062,21 @@
       "skipTcpProbe": false,
       "defaultPort": 8080,
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "vector",
+        "provider": "vector-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -729,6 +1084,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -752,6 +1108,21 @@
       "skipTcpProbe": false,
       "defaultPort": 9030,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -759,6 +1130,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -782,6 +1154,21 @@
       "skipTcpProbe": false,
       "defaultPort": 9030,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -789,6 +1176,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -812,6 +1200,21 @@
       "skipTcpProbe": false,
       "defaultPort": 9306,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -819,6 +1222,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -848,6 +1252,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -855,6 +1274,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -888,6 +1308,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -895,6 +1330,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -926,6 +1362,21 @@
         "pgVacuum": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -933,6 +1384,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -964,6 +1416,21 @@
         "pgVacuum": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -971,6 +1438,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1002,6 +1470,21 @@
         "pgVacuum": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1009,6 +1492,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1040,6 +1524,21 @@
         "pgVacuum": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1047,6 +1546,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1073,6 +1573,21 @@
       "skipTcpProbe": true,
       "defaultPort": 3306,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1080,6 +1595,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1109,6 +1625,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1116,6 +1647,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1147,6 +1679,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1154,6 +1701,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1184,6 +1732,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1191,6 +1754,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1221,6 +1785,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1228,6 +1807,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1257,6 +1837,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1264,6 +1859,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1293,6 +1889,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1300,6 +1911,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1329,6 +1941,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1336,6 +1963,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1366,6 +1994,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1373,6 +2016,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1402,6 +2046,21 @@
         "singleDatabase": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1409,6 +2068,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1439,6 +2099,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1446,6 +2121,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1476,6 +2152,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1483,6 +2174,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1511,6 +2203,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1518,6 +2225,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1551,6 +2259,21 @@
         "diagramSql": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "merged-profile",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1558,6 +2281,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1604,6 +2328,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1611,6 +2350,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1640,6 +2380,21 @@
         "singleDatabase": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1647,6 +2402,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": true,
@@ -1711,6 +2467,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1718,6 +2489,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -1746,6 +2518,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1753,6 +2540,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1783,6 +2571,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1790,6 +2593,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1817,6 +2621,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "jdbc",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1824,6 +2643,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1852,6 +2672,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1859,6 +2694,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1887,6 +2723,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1894,6 +2745,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1921,6 +2773,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1928,6 +2795,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1955,6 +2823,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1962,6 +2845,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -1991,6 +2875,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -1998,6 +2897,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2028,6 +2928,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2035,6 +2950,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -2060,6 +2976,20 @@
       "skipTcpProbe": true,
       "defaultPort": 7687,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "graph",
+        "provider": "graph-metadata",
+        "scopeLevels": [
+          "database"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2067,6 +2997,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2092,6 +3023,21 @@
       "skipTcpProbe": true,
       "defaultPort": 9042,
       "supportLevel": "understand",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "wide-column",
+        "provider": "wide-column-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2099,6 +3045,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2123,6 +3070,21 @@
       "metadataConnectionScoped": false,
       "skipTcpProbe": true,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2130,6 +3092,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2159,6 +3122,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2166,6 +3144,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2191,6 +3170,21 @@
       "skipTcpProbe": true,
       "defaultPort": 7070,
       "supportLevel": "understand",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2198,6 +3192,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2227,6 +3222,21 @@
         "treeSchema": true
       },
       "supportLevel": "understand",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2234,6 +3244,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2263,6 +3274,21 @@
         "treeSchema": true
       },
       "supportLevel": "understand",
+      "access": {
+        "connectionPicker": "merged-profile",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2270,6 +3296,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2296,6 +3323,21 @@
       "skipTcpProbe": true,
       "defaultPort": 22581,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2303,6 +3345,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -2332,6 +3375,21 @@
         "treeSchema": true
       },
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2339,6 +3397,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -2364,6 +3423,21 @@
       "skipTcpProbe": true,
       "defaultPort": 6041,
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2371,6 +3445,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2401,6 +3476,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2408,6 +3498,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -2442,6 +3533,21 @@
       "skipTcpProbe": true,
       "defaultPort": 2379,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "key-value",
+        "provider": "key-value-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": false,
@@ -2449,6 +3555,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2474,6 +3581,21 @@
       "skipTcpProbe": true,
       "defaultPort": 2181,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "service",
+        "provider": "service-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": false,
         "metadataBrowse": false,
@@ -2481,6 +3603,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2504,6 +3627,20 @@
       "defaultPort": 8848,
       "formKind": "nacos",
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "service",
+        "provider": "service-metadata",
+        "scopeLevels": [
+          "database"
+        ]
+      },
       "specializedSurface": true,
       "capabilities": {
         "queryExecution": false,
@@ -2512,6 +3649,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2534,6 +3672,20 @@
       "skipTcpProbe": false,
       "defaultPort": 8500,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "service",
+        "provider": "service-metadata",
+        "scopeLevels": [
+          "database"
+        ]
+      },
       "specializedSurface": true,
       "capabilities": {
         "queryExecution": false,
@@ -2542,6 +3694,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2588,6 +3741,23 @@
         }
       ],
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "merged-profile",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": [
+          "mq-admin"
+        ]
+      },
+      "schemaViewer": {
+        "kind": "service",
+        "provider": "service-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": false,
         "metadataBrowse": true,
@@ -2595,6 +3765,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2618,6 +3789,22 @@
       "defaultPort": 1883,
       "formKind": "mqtt",
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "specialized-service",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": [
+          "mq-admin"
+        ]
+      },
+      "schemaViewer": {
+        "kind": "service",
+        "provider": "service-metadata",
+        "scopeLevels": [
+          "database"
+        ]
+      },
       "specializedSurface": true,
       "capabilities": {
         "queryExecution": false,
@@ -2626,6 +3813,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2654,6 +3842,21 @@
         "schemaAware": true
       },
       "supportLevel": "understand",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2661,6 +3864,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2700,6 +3904,21 @@
         "treeSchema": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2707,6 +3926,7 @@
         "objectSource": true,
         "schemaSearch": true,
         "diagram": true,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": true,
         "tableImport": false,
@@ -2722,7 +3942,7 @@
     {
       "dbType": "influxdb",
       "label": "InfluxDB",
-      "runtimeMode": "agent",
+      "runtimeMode": "native",
       "mcpMode": "bridge",
       "agentKey": "influxdb",
       "driverStoreVisible": false,
@@ -2731,6 +3951,21 @@
       "skipTcpProbe": true,
       "defaultPort": 8086,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2738,6 +3973,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2760,6 +3996,21 @@
       "skipTcpProbe": true,
       "defaultPort": 8181,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "version-selector",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2767,6 +4018,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2792,6 +4044,21 @@
         "singleDatabase": true
       },
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "native",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "timeseries",
+        "provider": "timeseries-metadata",
+        "scopeLevels": [
+          "database",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2799,6 +4066,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2826,6 +4094,22 @@
         "databaseObjectTree": true
       },
       "supportLevel": "browse",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "jdbc",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "dynamic",
+        "provider": "runtime-handshake",
+        "scopeLevels": [
+          "database",
+          "schema",
+          "object"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2833,6 +4117,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2861,6 +4146,21 @@
         "schemaAware": true
       },
       "supportLevel": "operate",
+      "access": {
+        "connectionPicker": "direct",
+        "runtimeProvider": "agent",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "relational",
+        "provider": "relational-metadata",
+        "scopeLevels": [
+          "database",
+          "schema"
+        ]
+      },
       "capabilities": {
         "queryExecution": true,
         "metadataBrowse": true,
@@ -2868,6 +4168,7 @@
         "objectSource": false,
         "schemaSearch": true,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": true,
         "tableStructureEdit": false,
         "tableImport": false,
@@ -2889,6 +4190,23 @@
       "metadataConnectionScoped": false,
       "skipTcpProbe": true,
       "supportLevel": "connect",
+      "access": {
+        "connectionPicker": "plugin-provided",
+        "runtimeProvider": "external-plugin",
+        "connectSupported": true,
+        "testConnectionSupported": true,
+        "requiredFeatures": []
+      },
+      "schemaViewer": {
+        "kind": "dynamic",
+        "provider": "runtime-handshake",
+        "scopeLevels": [
+          "catalog",
+          "database",
+          "schema",
+          "object"
+        ]
+      },
       "specializedSurface": true,
       "capabilities": {
         "queryExecution": false,
@@ -2897,6 +4215,7 @@
         "objectSource": false,
         "schemaSearch": false,
         "diagram": false,
+        "schemaViewer": true,
         "tableDataEdit": false,
         "tableStructureEdit": false,
         "tableImport": false,

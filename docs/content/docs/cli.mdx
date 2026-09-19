@@ -5,9 +5,9 @@ description: Use the native Chiron Horizon CLI to read connections, schemas, que
 
 <Callout type="info">Chiron Horizon CLI is a dedicated command line package for terminal, script, and coding-agent workflows. It shares Chiron Horizon connection storage and SQL safety rules with the MCP server.</Callout>
 
-## Availability in 0.1.1
+## Availability in 0.1.2
 
-Chiron Horizon 0.1.1 does not publish standalone CLI or npm packages. Use the desktop application for local database workflows and enable its built-in MCP service from **Settings → MCP** when an MCP-capable client needs access.
+Chiron Horizon 0.1.2 does not publish standalone CLI or npm packages. Use the desktop application for local database workflows and enable its built-in MCP service from **Settings → MCP** when an MCP-capable client needs access.
 
 Developers can build the CLI from this repository with the same pinned Rust toolchain used by the desktop release:
 
@@ -43,7 +43,7 @@ chiron-horizon doctor
 chiron-horizon doctor --json
 ```
 
-The standalone npm CLI is deferred for 0.1.1. Rebuild the CLI from this repository when a source-development binary is needed.
+The standalone npm CLI is deferred for 0.1.2. Rebuild the CLI from this repository when a source-development binary is needed.
 
 Use `chiron-horizon capabilities` to see which database types can be queried directly and which currently require Chiron Horizon Desktop:
 

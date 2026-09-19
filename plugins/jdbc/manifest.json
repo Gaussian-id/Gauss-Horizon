@@ -1,7 +1,7 @@
 {
   "id": "jdbc",
   "name": "Chiron Horizon JDBC Plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "protocol_version": 1,
   "description": "Adds optional JDBC driver support to Chiron Horizon.",
   "executable": "bin/chiron-horizon-jdbc-plugin",

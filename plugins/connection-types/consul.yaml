@@ -10,6 +10,17 @@ metadataConnectionScoped: false
 skipTcpProbe: false
 defaultPort: 8500
 supportLevel: connect
+access:
+  connectionPicker: direct
+  runtimeProvider: specialized-service
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: service
+  provider: service-metadata
+  scopeLevels:
+    - database
 specializedSurface: true
 capabilities:
   queryExecution: false
@@ -18,6 +29,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

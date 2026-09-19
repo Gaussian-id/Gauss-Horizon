@@ -11,6 +11,18 @@ skipTcpProbe: true
 defaultPort: 1883
 formKind: mqtt
 supportLevel: connect
+access:
+  connectionPicker: direct
+  runtimeProvider: specialized-service
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures:
+    - mq-admin
+schemaViewer:
+  kind: service
+  provider: service-metadata
+  scopeLevels:
+    - database
 specializedSurface: true
 capabilities:
   queryExecution: false
@@ -19,6 +31,7 @@ capabilities:
   objectSource: false
   schemaSearch: false
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: false
   tableImport: false

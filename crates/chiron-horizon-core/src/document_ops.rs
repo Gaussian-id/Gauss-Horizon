@@ -1,5 +1,5 @@
 use crate::connection::{AppState, PoolKind};
-use crate::db::agent_driver::mongo_document_id_params;
+use crate::db::agent_driver::{mongo_document_id_params, AgentCapability};
 use crate::db::document_result::DocumentQueryResult;
 use crate::db::{dynamodb_driver, easysearch_driver, elasticsearch_driver, mongo_driver, vector_driver};
 
@@ -554,6 +554,78 @@ pub async fn describe_dynamodb_table_core(
             dynamodb_driver::describe_table(&client, table).await
         }
         _ => Err("Not a DynamoDB connection".to_string()),
+    }
+}
+
+pub async fn mongodb_get_collection_declared_schema_core(
+    state: &AppState,
+    connection_id: &str,
+    database: &str,
+    collection: &str,
+) -> Result<serde_json::Value, String> {
+    ensure_document_pool(state, connection_id).await?;
+    let pool = state.pool_handle(connection_id).await.ok_or("Not found")?;
+    match &pool {
+        PoolKind::MongoDb(client) => mongo_driver::get_collection_declared_schema(client, database, collection).await,
+        PoolKind::Agent(client) => {
+            let mut client = client.lock().await;
+            if !client.supports_capability(AgentCapability::MongoRunCommand) {
+                return Err("MongoDB legacy protocol does not expose declared collection metadata; upgrade or reinstall the MongoDB Legacy driver".to_string());
+            }
+            let result: mongo_driver::MongoDocumentResult = client
+                .mongo_run_command(serde_json::json!({
+                    "database": database,
+                    "command_json": serde_json::json!({
+                        "listCollections": 1,
+                        "filter": {"name": collection},
+                        "nameOnly": false
+                    }).to_string(),
+                }))
+                .await?;
+            Ok(result
+                .documents
+                .first()
+                .and_then(|response| response.pointer("/cursor/firstBatch/0"))
+                .cloned()
+                .unwrap_or(serde_json::Value::Null))
+        }
+        _ => Err("Not a MongoDB connection".to_string()),
+    }
+}
+
+pub async fn mongodb_list_collection_search_indexes_core(
+    state: &AppState,
+    connection_id: &str,
+    database: &str,
+    collection: &str,
+) -> Result<serde_json::Value, String> {
+    ensure_document_pool(state, connection_id).await?;
+    let pool = state.pool_handle(connection_id).await.ok_or("Not found")?;
+    match &pool {
+        PoolKind::MongoDb(client) => mongo_driver::list_collection_search_indexes(client, database, collection).await,
+        PoolKind::Agent(client) => {
+            let mut client = client.lock().await;
+            if !client.supports_capability(AgentCapability::MongoRunCommand) {
+                return Err("MongoDB legacy protocol does not expose search-index metadata; upgrade or reinstall the MongoDB Legacy driver".to_string());
+            }
+            let result: mongo_driver::MongoDocumentResult = client
+                .mongo_run_command(serde_json::json!({
+                    "database": database,
+                    "command_json": serde_json::json!({
+                        "aggregate": collection,
+                        "pipeline": [{"$listSearchIndexes": {}}],
+                        "cursor": {}
+                    }).to_string(),
+                }))
+                .await?;
+            Ok(result
+                .documents
+                .first()
+                .and_then(|response| response.pointer("/cursor/firstBatch"))
+                .cloned()
+                .unwrap_or_else(|| serde_json::json!([])))
+        }
+        _ => Err("Not a MongoDB connection".to_string()),
     }
 }
 

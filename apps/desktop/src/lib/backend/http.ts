@@ -60,6 +60,7 @@ import type { CreatedKey, EnqueuedTaskSummary, KeyCreateInput, KeyListItem, KeyP
 import type { CollectionInfo } from "@/types/database";
 import type { SchemaDiffPreparation, SchemaDiffPreparationOptions, SchemaSyncSqlPlan, SelectedSchemaDiffInput, GenerateSchemaSyncPlanOptions, TableDiff, FunctionDiff, SequenceDiff, RuleDiff, OwnerDiff } from "@/lib/schema/schemaDiff";
 import type { SidebarObjectKind } from "@/lib/database/databaseObjectCapabilities";
+import type { SchemaScopePage, SchemaViewResponse, SchemaViewScope, SchemaViewerDescriptor } from "@/lib/database/schemaViewer";
 import type { AiConfig, AiTestConnectionResult } from "@/stores/settingsStore";
 import type { AiChatSelectionState, AiEffortCapability } from "@/types/ai";
 import type {
@@ -1066,6 +1067,18 @@ export async function listSchemaInfos(connectionId: string, database: string): P
 
 export async function listTables(connectionId: string, database: string, schema: string, filter?: string, limit?: number, offset?: number, objectTypes?: SidebarObjectKind[], catalog?: string, tableNameFilter?: TableNameFilter): Promise<TableInfo[]> {
   return get(`/api/schema/tables?${qs({ connection_id: connectionId, database, schema, filter, limit, offset, object_types: objectTypes?.join(","), catalog, table_name_filter: tableNameFilter ? JSON.stringify(tableNameFilter) : undefined })}`);
+}
+
+export async function describeSchemaViewer(connectionId: string): Promise<SchemaViewerDescriptor> {
+  return post("/api/schema/viewer/describe", { connectionId });
+}
+
+export async function listSchemaViewerScopes(connectionId: string, parent: SchemaViewScope = {}, search?: string, limit = 200, offset = 0): Promise<SchemaScopePage> {
+  return post("/api/schema/viewer/scopes", { connectionId, parent, search, limit, offset });
+}
+
+export async function getSchemaView(connectionId: string, scope: SchemaViewScope): Promise<SchemaViewResponse> {
+  return post("/api/schema/viewer/view", { connectionId, scope });
 }
 
 export async function getTableComment(_connectionId: string, _database: string, _schema: string, _table: string, _catalog?: string): Promise<string | null> {

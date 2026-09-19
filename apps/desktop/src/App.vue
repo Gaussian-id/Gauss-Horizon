@@ -12,6 +12,7 @@ import AppSidebar from "@/components/layout/AppSidebar.vue";
 import SqlEditorWorkspace from "@/components/layout/SqlEditorWorkspace.vue";
 import { EDITOR_TOOLBAR_ACTIONS } from "@/components/layout/editorToolbarActions";
 import AppDialogs from "@/components/layout/AppDialogs.vue";
+import SchemaViewerDialog from "@/components/schema-viewer/SchemaViewerDialog.vue";
 import DetachedTabHeader from "@/components/layout/DetachedTabHeader.vue";
 import WelcomeScreen from "@/components/layout/WelcomeScreen.vue";
 import type { ConfigTab } from "@/components/connection/ConnectionDialog.vue";
@@ -320,6 +321,13 @@ const authenticated = ref(isDesktop);
 const setupRequired = ref(false);
 
 const showConnectionDialog = ref(false);
+const showSchemaViewerDialog = ref(false);
+watch(
+  () => connectionStore.schemaViewerSource,
+  (source) => {
+    if (source) showSchemaViewerDialog.value = true;
+  },
+);
 const connectionDialogPrefill = ref<ConnectionDeepLinkDraft | null>(null);
 const connectionDialogInitialTab = ref<ConfigTab | undefined>(undefined);
 const settingsPageTabOpen = ref(false);
@@ -3775,6 +3783,7 @@ onUnmounted(() => {
           @new-connection="showConnectionDialog = true"
           @expand-sidebar="setSidebarOpen(true)"
           @new-query="newQuery"
+          @open-schema-viewer="showSchemaViewerDialog = true"
           @set-theme-mode="setThemeMode"
           @toggle-ai="toggleRightSidebarPanel('ai')"
           @toggle-history="toggleRightSidebarPanel('history')"
@@ -4163,6 +4172,7 @@ onUnmounted(() => {
           @open-database-search-target="openDatabaseSearchTarget"
           @open-diagram-target="openDiagramTarget"
         />
+        <SchemaViewerDialog v-model:open="showSchemaViewerDialog" />
         <MultiDbExecuteDialog
           v-model:open="showMultiDbExecuteDialog"
           :sql="multiExecuteSql"

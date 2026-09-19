@@ -86,10 +86,10 @@ export interface AgentDownloadCatalog {
   nativeAgents: NativeAgentDisplayEntry[];
 }
 
-const JDBC_PLUGIN_DOWNLOAD_URL = "https://github.com/Gaussian-id/Chiron-Horizon/releases/download/v0.1.1/chiron-horizon-jdbc-plugin-0.1.1.zip";
+const JDBC_PLUGIN_DOWNLOAD_URL = "https://github.com/Gaussian-id/Chiron-Horizon/releases/download/v0.1.2/chiron-horizon-jdbc-plugin-0.1.2.zip";
 const GITHUB_RELEASE_DOWNLOAD_PREFIX = "https://github.com/Gaussian-id/Chiron-Horizon/releases/download/";
 const CNB_RELEASE_DOWNLOAD_PREFIX = "https://distribution-disabled.invalid/-/releases/download/";
-const MIN_APP_VERSION = "0.1.1";
+const MIN_APP_VERSION = "0.1.2";
 const driverVersionMap = driverVersions as Record<string, string>;
 
 const platformLabels: Record<string, string> = {
@@ -252,7 +252,7 @@ export function buildAgentDownloadCatalog(assets: GitHubReleaseAsset[]): AgentDo
 export function buildJdbcPluginDownloadEntry(): JdbcPluginDownloadEntry {
   return {
     label: "Chiron Horizon JDBC Plugin",
-    filename: "chiron-horizon-jdbc-plugin-0.1.1.zip",
+    filename: "chiron-horizon-jdbc-plugin-0.1.2.zip",
     url: JDBC_PLUGIN_DOWNLOAD_URL,
   };
 }

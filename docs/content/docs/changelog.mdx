@@ -1,8 +1,12 @@
 ---
-title: Changelog
-description: Chiron Horizon development history for Chiron Horizon.
+title: Changelog and release notes
+description: Chiron Horizon release history, publication gates, and canonical release-note sources.
 ---
 
-Chiron Horizon starts at **0.1.0**. The changelog is bundled for offline access and may refresh from the Chiron Horizon repository. GitHub Releases provide the canonical desktop downloads; npm packages are deferred for this release and application auto-update is disabled.
+Chiron Horizon starts at **0.1.0**. The changelog is bundled for offline access and periodically refreshes from the canonical Chiron Horizon repository. GitHub Releases provide the canonical desktop downloads.
 
 [Read the canonical changelog](https://github.com/Gaussian-id/Chiron-Horizon/blob/main/CHANGELOG.md)
+
+Version-specific, landing-page-ready notes live in [`docs/releases`](https://github.com/Gaussian-id/Chiron-Horizon/tree/main/docs/releases). The release workflow uses the matching `docs/releases/v<version>.md` file as the GitHub Release body.
+
+A release is published only after its annotated tag points to `main`, the tag matches the application version, required platform and Agent builds pass, and the assembled checksums verify.

@@ -82,31 +82,31 @@ jobs:
             platform: macos-arm64
             bundles: app,dmg
             extension: .dmg
-            output: Chiron-Horizon_0.1.1_macos-arm64.dmg
+            output: Chiron-Horizon_0.1.2_macos-arm64.dmg
           - os: macos-15-intel
             target: x86_64-apple-darwin
             platform: macos-x64
             bundles: app,dmg
             extension: .dmg
-            output: Chiron-Horizon_0.1.1_macos-x64.dmg
+            output: Chiron-Horizon_0.1.2_macos-x64.dmg
           - os: windows-2022
             target: x86_64-pc-windows-msvc
             platform: windows-x64
             bundles: nsis
             extension: .exe
-            output: Chiron-Horizon_0.1.1_windows-x64-setup.exe
+            output: Chiron-Horizon_0.1.2_windows-x64-setup.exe
           - os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
             platform: linux-x64
             bundles: deb,appimage
             extension: .deb
-            output: Chiron-Horizon_0.1.1_linux-x64.deb
+            output: Chiron-Horizon_0.1.2_linux-x64.deb
           - os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
             platform: linux-appimage-x64
             bundles: appimage
             extension: .AppImage
-            output: Chiron-Horizon_0.1.1_linux-x64.AppImage
+            output: Chiron-Horizon_0.1.2_linux-x64.AppImage
     runs-on: ${{ matrix.os }}
     env:
       CARGO_INCREMENTAL: "0"
@@ -320,7 +320,7 @@ jobs:
           if-no-files-found: error
 
   publish:
-    name: Publish verified v0.1.1 release
+    name: Publish verified v0.1.2 release
     needs: [desktop, java-agents, go-agents, rust-agents, managed-jre]
     runs-on: ubuntu-22.04
     steps:
@@ -358,10 +358,11 @@ jobs:
         run: |
           test "$(find release -maxdepth 1 -name "Chiron-Horizon_${GITHUB_REF_NAME#v}_*" -type f | wc -l)" -eq 5
           sha256sum -c release/SHA256SUMS
+          test -f "docs/releases/${GITHUB_REF_NAME}.md"
       - name: Create public GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" release/* --repo "$GITHUB_REPOSITORY" --title "Chiron Horizon 0.1.1" --generate-notes --latest
+        run: gh release create "$GITHUB_REF_NAME" release/* --repo "$GITHUB_REPOSITORY" --title "Chiron Horizon ${GITHUB_REF_NAME#v}" --notes-file "docs/releases/${GITHUB_REF_NAME}.md" --latest
       - name: Download published assets and reverify checksums
         env:
           GH_TOKEN: ${{ github.token }}

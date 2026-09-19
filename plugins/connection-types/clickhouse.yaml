@@ -11,6 +11,18 @@ metadataConnectionScoped: false
 skipTcpProbe: false
 defaultPort: 8123
 supportLevel: operate
+access:
+  connectionPicker: direct
+  runtimeProvider: native
+  connectSupported: true
+  testConnectionSupported: true
+  requiredFeatures: []
+schemaViewer:
+  kind: relational
+  provider: relational-metadata
+  scopeLevels:
+    - database
+    - schema
 capabilities:
   queryExecution: true
   metadataBrowse: true
@@ -18,6 +30,7 @@ capabilities:
   objectSource: false
   schemaSearch: true
   diagram: false
+  schemaViewer: true
   tableDataEdit: false
   tableStructureEdit: true
   tableImport: true

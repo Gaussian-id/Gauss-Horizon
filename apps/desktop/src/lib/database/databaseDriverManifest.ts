@@ -4,6 +4,24 @@ import driverManifest from "../../../../../crates/chiron-horizon-core/assets/dat
 export type DatabaseSupportLevel = "connect" | "browse" | "understand" | "operate";
 export type DatabaseRuntimeMode = "native" | "file" | "agent" | "external";
 export type ConnectionFormKind = "standard" | "jdbc" | "mq" | "mqtt" | "nacos";
+export type ConnectionPickerMode = "direct" | "merged-profile" | "version-selector" | "plugin-provided";
+export type DatabaseRuntimeProvider = "native" | "agent" | "jdbc" | "external-plugin" | "specialized-service";
+export type SchemaViewerKind = "relational" | "document" | "graph" | "hybrid" | "vector" | "timeseries" | "wide-column" | "key-value" | "service" | "dynamic";
+export type SchemaViewerScopeLevel = "catalog" | "database" | "schema" | "object";
+
+export interface DatabaseAccessContract {
+  connectionPicker: ConnectionPickerMode;
+  runtimeProvider: DatabaseRuntimeProvider;
+  connectSupported: true;
+  testConnectionSupported: true;
+  requiredFeatures: string[];
+}
+
+export interface DatabaseSchemaViewerContract {
+  kind: SchemaViewerKind;
+  provider: string;
+  scopeLevels: SchemaViewerScopeLevel[];
+}
 
 export const DATABASE_PRODUCT_CAPABILITY_KEYS = [
   "queryExecution",
@@ -12,6 +30,7 @@ export const DATABASE_PRODUCT_CAPABILITY_KEYS = [
   "objectSource",
   "schemaSearch",
   "diagram",
+  "schemaViewer",
   "tableDataEdit",
   "tableStructureEdit",
   "tableImport",
@@ -68,6 +87,8 @@ export interface DatabaseDriverManifestEntry {
   formKind?: ConnectionFormKind;
   traits?: DatabaseBehaviorTraits;
   supportLevel: DatabaseSupportLevel;
+  access: DatabaseAccessContract;
+  schemaViewer: DatabaseSchemaViewerContract;
   capabilities: Partial<DatabaseProductCapabilities>;
 }
 
@@ -114,6 +135,14 @@ export function databaseSupportLevel(dbType?: DatabaseType): DatabaseSupportLeve
 
 export function databaseManifestEntry(dbType?: DatabaseType): DatabaseDriverManifestEntry | undefined {
   return dbType ? DATABASE_DRIVER_BY_TYPE.get(dbType) : undefined;
+}
+
+export function databaseSchemaViewerContract(dbType?: DatabaseType): DatabaseSchemaViewerContract | undefined {
+  return databaseManifestEntry(dbType)?.schemaViewer;
+}
+
+export function databaseAccessContract(dbType?: DatabaseType): DatabaseAccessContract | undefined {
+  return databaseManifestEntry(dbType)?.access;
 }
 
 export function databaseDefaultPort(dbType?: DatabaseType): number | undefined {

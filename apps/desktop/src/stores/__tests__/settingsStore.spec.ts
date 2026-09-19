@@ -479,6 +479,7 @@ describe("normalizeEditorSettings", () => {
     expect(settings.toolbarItems.history).toBe(false);
     expect(settings.toolbarItems.sqlLibrary).toBe(true);
     expect(settings.toolbarItems.exclusiveRightSidebarPanels).toBe(true);
+    expect(settings.toolbarItems.schemaViewer).toBe(true);
   });
 
   it("preserves disabled right sidebar panel exclusivity", () => {
@@ -757,9 +758,13 @@ describe("settingsStore AI API key normalization", () => {
   });
 
   it("trims API keys before persisting new configurations", async () => {
-    const saveAiConfigItem = vi.fn().mockResolvedValue(undefined);
+    let persisted: AiConfigItem | undefined;
+    const saveAiConfigItem = vi.fn(async (config: AiConfigItem) => {
+      persisted = config;
+    });
     vi.doMock("@/lib/backend/api", () => ({
       saveAiConfigItem,
+      loadAiConfigs: vi.fn(async () => (persisted ? [persisted] : [])),
       saveAiChatSelection: vi.fn().mockResolvedValue(undefined),
     }));
 
@@ -1662,8 +1667,12 @@ describe("settingsStore activeModel lifecycle", () => {
 
   it("does not invent an active model when the first saved provider has no legacy model", async () => {
     const saveAiChatSelection = vi.fn().mockResolvedValue(undefined);
+    let persisted: AiConfigItem | undefined;
     vi.doMock("@/lib/backend/api", () => ({
-      saveAiConfigItem: vi.fn().mockResolvedValue(undefined),
+      saveAiConfigItem: vi.fn(async (config: AiConfigItem) => {
+        persisted = config;
+      }),
+      loadAiConfigs: vi.fn(async () => (persisted ? [persisted] : [])),
       saveAiChatSelection,
     }));
 
@@ -1676,10 +1685,14 @@ describe("settingsStore activeModel lifecycle", () => {
   });
 
   it("clears the active model and effort when an existing config changes provider", async () => {
-    const saveAiConfigItem = vi.fn().mockResolvedValue(undefined);
+    let persisted = makeTestConfig({ id: "c1", provider: "openai", model: "" });
+    const saveAiConfigItem = vi.fn(async (config: AiConfigItem) => {
+      persisted = config;
+    });
     const saveAiChatSelection = vi.fn().mockResolvedValue(undefined);
     vi.doMock("@/lib/backend/api", () => ({
       saveAiConfigItem,
+      loadAiConfigs: vi.fn(async () => [persisted]),
       saveAiChatSelection,
     }));
 
@@ -1725,10 +1738,14 @@ describe("settingsStore activeModel lifecycle", () => {
   });
 
   it("preserves the active model and effort when connection details change within the same provider", async () => {
-    const saveAiConfigItem = vi.fn().mockResolvedValue(undefined);
+    let persisted = makeTestConfig({ id: "c1", provider: "openai", model: "" });
+    const saveAiConfigItem = vi.fn(async (config: AiConfigItem) => {
+      persisted = config;
+    });
     const saveAiChatSelection = vi.fn().mockResolvedValue(undefined);
     vi.doMock("@/lib/backend/api", () => ({
       saveAiConfigItem,
+      loadAiConfigs: vi.fn(async () => [persisted]),
       saveAiChatSelection,
     }));
 

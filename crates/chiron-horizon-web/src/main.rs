@@ -494,6 +494,9 @@ async fn main() {
         .route("/agents/progress/{operationId}", get(routes::agents::agent_progress))
         // Schema
         .route("/schema/databases", get(routes::schema::list_databases))
+        .route("/schema/viewer/describe", post(routes::schema::describe_schema_viewer))
+        .route("/schema/viewer/scopes", post(routes::schema::list_schema_viewer_scopes))
+        .route("/schema/viewer/view", post(routes::schema::get_schema_view))
         .route("/schema/database-metadata", get(routes::schema::list_database_metadata))
         .route("/schema/database-storage", post(routes::schema::list_database_storage))
         .route("/schema/xugu/tablespaces", get(routes::schema::list_xugu_tablespaces))

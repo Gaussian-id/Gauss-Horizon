@@ -549,6 +549,12 @@ export const useConnectionStore = defineStore("connection", () => {
     tableName?: string;
     tableNames?: string[];
   } | null>(null);
+  const schemaViewerSource = ref<{
+    connectionId: string;
+    database?: string;
+    schema?: string;
+    object?: string;
+  } | null>(null);
   const docsSource = ref<{
     connectionId: string;
     database: string;
@@ -9429,6 +9435,7 @@ export const useConnectionStore = defineStore("connection", () => {
     dataCompareSource,
     sqlFileSource,
     diagramSource,
+    schemaViewerSource,
     docsSource,
     tableImportSource,
     mongoDatabaseDumpSource,

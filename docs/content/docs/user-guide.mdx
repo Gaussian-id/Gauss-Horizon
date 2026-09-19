@@ -5,7 +5,7 @@ description: Use Chiron Horizon connections, the query workspace, AI assistance,
 
 # Use Chiron Horizon
 
-Chiron Horizon is a database workbench. It stores connection settings, opens a workspace for the selected database, and keeps database access under the permissions of the account you configure. Version **0.1.1** is distributed through the [Chiron Horizon GitHub Releases](https://github.com/Gaussian-id/Chiron-Horizon/releases). npm packages are deferred for this release and application auto-update is disabled.
+Chiron Horizon is a database workbench. It stores connection settings, opens a workspace for the selected database, and keeps database access under the permissions of the account you configure. Version **0.1.2** is distributed through the [Chiron Horizon GitHub Releases](https://github.com/Gaussian-id/Chiron-Horizon/releases). npm packages are deferred for this release and application auto-update is disabled.
 
 ## 1. Create and test a connection
 
@@ -14,7 +14,7 @@ Chiron Horizon is a database workbench. It stores connection settings, opens a w
 3. Use **Test Connection** before saving. A successful save only stores the configuration; it does not change the database.
 4. Give production, staging, and development connections clear names and colors. Enable **Read-only** or production protection before opening a sensitive target.
 
-For ChironDB, select **ChironDB**, enter the server's HTTP endpoint and credentials if required, then choose a collection in the workspace. ChironDB is the database server; Chiron Horizon is the client. See [Getting Started](/en/docs/getting-started) for connection and server prerequisites.
+For ChironDB's native document/vector/graph workspace, select **ChironDB**, enter the HTTP endpoint and credentials if required, then choose a collection. To test ChironDB's relational preview, select the **ChironDB Relational (PostgreSQL wire)** profile under PostgreSQL, use port `7403`, user `chiron`, database `gaussdb`, and `sslmode=disable`. The relational profile supports connection testing, SQL execution, joins, and table/column discovery. Its index and foreign-key Schema Viewer facets remain partial until ChironDB exposes compatible PostgreSQL catalog metadata. ChironDB is the database server; Chiron Horizon is the client. See [Getting Started](/en/docs/getting-started) for connection and server prerequisites.
 
 ## 2. Work in the editor
 
@@ -70,9 +70,22 @@ MongoDB MCP was end-to-end verified against MongoDB 8.0.30 on macOS Apple Silico
 
 ## 7. Appearance, About, and support
 
-Use **Settings → Appearance** to choose the interface theme and logo variant. The supplied **Black** Chiron Horizon artwork is a logo choice independent of light/dark theme. **Settings → About** shows the local 0.1.1 changelog and its website link; the changelog remains available offline.
+Use **Settings → Appearance** to choose the interface theme and logo variant. The supplied **Black** Chiron Horizon artwork is a logo choice independent of light/dark theme. **Settings → About** shows the local 0.1.2 changelog and periodically refreshes release information from the canonical GitHub repository; the bundled changelog remains available offline.
 
 When requesting support, include the app/server version, database type, sanitized endpoint, action, error text, and query ID. Do not include API keys, passwords, exported plaintext connection files, or sensitive result rows.
+
+## Context-aware Schema Viewer
+
+Open **Schema Viewer** from the main toolbar, select a connected database, then choose the available catalog, database, schema, or object scope. The same action is used for every engine, but the read-only renderer follows the storage model:
+
+- Relational and JDBC metadata opens an ERD and remains useful when an engine omits indexes or foreign keys.
+- Neo4j uses a metagraph of declared labels, relationship types, properties, indexes, and constraints.
+- MongoDB and search engines use expandable JSON for validators, mappings, aliases, and declared settings.
+- ChironDB uses composite metadata tabs for document payload schema, vectors, and graph metadata.
+- Vector and time-series databases use summary views for dimensions, fields, tags, distance/index configuration, and retention metadata exposed by the engine.
+- Wide-column, key-value, registry, MQ, and MQTT connections use searchable metadata summaries. These views never read values, message bodies, configuration bodies, secrets, or MQTT payloads.
+
+Schema Viewer never samples rows, documents, objects, vectors, series, registry values, or messages to infer a schema. Metadata is marked **complete**, **partial**, **absent**, or **not exposed**. Permission, authentication, and transport failures remain errors; **not exposed** is reserved for a real protocol limitation. Plugin-owned connections appear only when their installed provider declares the Schema Viewer v1 contract and confirms it at runtime through `connection/schemaViewer/describe`; scope and view requests use `connection/schemaViewer/listScopes` and `connection/schemaViewer/getView`.
 
 ## Troubleshooting
 
@@ -88,7 +101,7 @@ When requesting support, include the app/server version, database type, sanitize
 
 ## Verification scope
 
-The release workflow builds and smoke-tests macOS Apple Silicon and Intel, Windows x64, and Ubuntu 22.04+ x64 before creating the public tag. It verifies About 0.1.1, bundled changelog, the Black logo choice, restart behavior, and embedded frontend. macOS uses ad-hoc signing and the Windows installer is unsigned; expect the normal Gatekeeper or SmartScreen confirmation. The application updater and npm publication remain disabled.
+The release workflow builds and smoke-tests macOS Apple Silicon and Intel, Windows x64, and Ubuntu 22.04+ x64 before creating the public tag. It verifies About 0.1.2, bundled changelog, the Black logo choice, restart behavior, and embedded frontend. macOS uses ad-hoc signing and the Windows installer is unsigned; expect the normal Gatekeeper or SmartScreen confirmation. The application updater and npm publication remain disabled.
 
 <Cards>
   <Card title="Get started" href="/en/docs/getting-started">Install or run from source, then create the first connection.</Card>

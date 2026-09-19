@@ -16,6 +16,12 @@ const runtimeModes = new Set(["native", "file", "agent", "external"]);
 const mcpModes = new Set(["direct", "bridge", "unsupported"]);
 const supportLevels = new Set(["connect", "browse", "understand", "operate"]);
 const formKinds = new Set(["standard", "jdbc", "mq", "mqtt", "nacos"]);
+const connectionPickerModes = new Set(["direct", "merged-profile", "version-selector", "plugin-provided"]);
+const runtimeProviders = new Set(["native", "agent", "jdbc", "external-plugin", "specialized-service"]);
+const requiredRuntimeFeatures = new Set(["duckdb-sidecar", "dynamodb", "mq-admin"]);
+const schemaViewerKinds = new Set(["relational", "document", "graph", "hybrid", "vector", "timeseries", "wide-column", "key-value", "service", "dynamic"]);
+const schemaViewerProviders = new Set(["relational-metadata", "document-metadata", "graph-metadata", "hybrid-metadata", "vector-metadata", "timeseries-metadata", "wide-column-metadata", "key-value-metadata", "service-metadata", "runtime-handshake"]);
+const schemaViewerScopeLevels = new Set(["catalog", "database", "schema", "object"]);
 const profileCategories = new Set(["sql", "analytics", "domestic", "lightweight", "document", "graph_ai", "timeseries", "mq", "registry_config"]);
 const descriptorKeys = new Set([
   "schemaVersion",
@@ -40,12 +46,16 @@ const descriptorKeys = new Set([
   "formKind",
   "traits",
   "supportLevel",
+  "access",
+  "schemaViewer",
   "capabilities",
 ]);
 const profileCatalogKeys = new Set(["schemaVersion", "profiles"]);
 const connectionProfileKeys = new Set(["id", "dbType", "label", "pickerLabel", "icon", "pickerIcon", "port", "user", "host", "urlParams", "category"]);
 const driverProfileKeys = new Set(["profile", "agentKey", "packageKey", "label", "storeVisible", "storeOrder"]);
 const managedDriverKeys = new Set(["key", "label", "storeVisible", "storeOrder"]);
+const accessKeys = new Set(["connectionPicker", "runtimeProvider", "connectSupported", "testConnectionSupported", "requiredFeatures"]);
+const schemaViewerKeys = new Set(["kind", "provider", "scopeLevels"]);
 const capabilityKeys = new Set([
   "queryExecution",
   "metadataBrowse",
@@ -53,6 +63,7 @@ const capabilityKeys = new Set([
   "objectSource",
   "schemaSearch",
   "diagram",
+  "schemaViewer",
   "tableDataEdit",
   "tableStructureEdit",
   "tableImport",
@@ -117,6 +128,21 @@ function validateDescriptor(descriptor, file, knownDialects) {
   if (!runtimeModes.has(descriptor.runtimeMode)) throw new Error(`${location}: invalid runtimeMode`);
   if (!mcpModes.has(descriptor.mcpMode)) throw new Error(`${location}: invalid mcpMode`);
   if (!supportLevels.has(descriptor.supportLevel)) throw new Error(`${location}: invalid supportLevel`);
+  validateAccessContract(descriptor.access, location);
+  const providerRuntimeModes = {
+    native: new Set(["native", "file"]),
+    agent: new Set(["agent"]),
+    jdbc: new Set(["external"]),
+    "external-plugin": new Set(["external"]),
+    "specialized-service": new Set(["native", "agent"]),
+  };
+  if (!providerRuntimeModes[descriptor.access.runtimeProvider].has(descriptor.runtimeMode)) {
+    throw new Error(`${location}: access.runtimeProvider ${descriptor.access.runtimeProvider} is incompatible with runtimeMode ${descriptor.runtimeMode}`);
+  }
+  if (descriptor.access.runtimeProvider === "agent" && !descriptor.agentKey) {
+    throw new Error(`${location}: agent access requires agentKey`);
+  }
+  validateSchemaViewerContract(descriptor.schemaViewer, location);
   if (descriptor.dialect && !knownDialects.has(descriptor.dialect)) throw new Error(`${location}: unknown dialect ${descriptor.dialect}`);
   if (descriptor.runtimeMode === "agent" && !descriptor.agentKey) throw new Error(`${location}: agent runtime requires agentKey`);
   if (descriptor.driverStoreVisible && !descriptor.agentKey) throw new Error(`${location}: driverStoreVisible requires agentKey`);
@@ -125,7 +151,10 @@ function validateDescriptor(descriptor, file, knownDialects) {
     throw new Error(`${location}: invalid defaultPort`);
   }
   if (!descriptor.capabilities || typeof descriptor.capabilities !== "object") throw new Error(`${location}: capabilities are required`);
-  validateBooleanMap(descriptor.capabilities, capabilityKeys, `${location}: capabilities`, true);
+  validateBooleanMap(descriptor.capabilities, capabilityKeys, `${location}: capabilities`);
+  const missingCapabilities = [...capabilityKeys].filter((key) => !(key in descriptor.capabilities));
+  if (missingCapabilities.length > 0) throw new Error(`${location}: capabilities is missing keys: ${missingCapabilities.join(", ")}`);
+  if (descriptor.capabilities.schemaViewer !== true) throw new Error(`${location}: explicit schemaViewer capability must be enabled`);
   if (!Object.values(descriptor.capabilities).some(Boolean) && descriptor.specializedSurface !== true) {
     throw new Error(`${location}: enable a product capability or set specializedSurface: true`);
   }
@@ -147,6 +176,31 @@ function validateDescriptor(descriptor, file, knownDialects) {
     if (!driver.key || !driver.label) throw new Error(`${location}: managedDrivers entries require key and label`);
     if (driver.storeVisible !== undefined && typeof driver.storeVisible !== "boolean") throw new Error(`${location}: managed driver ${driver.key} storeVisible must be a boolean`);
     if (driver.storeVisible) validatePositiveInteger(driver.storeOrder, `${location}: managed driver ${driver.key} storeOrder`);
+  }
+}
+
+function validateAccessContract(access, location) {
+  if (!access || typeof access !== "object" || Array.isArray(access)) throw new Error(`${location}: access contract is required`);
+  validateKnownKeys(access, accessKeys, `${location}: access`);
+  if (!connectionPickerModes.has(access.connectionPicker)) throw new Error(`${location}: invalid access.connectionPicker`);
+  if (!runtimeProviders.has(access.runtimeProvider)) throw new Error(`${location}: invalid access.runtimeProvider`);
+  if (access.connectSupported !== true || access.testConnectionSupported !== true) {
+    throw new Error(`${location}: all registered connection types must support connect and test connection`);
+  }
+  if (!Array.isArray(access.requiredFeatures) || access.requiredFeatures.some((feature) => typeof feature !== "string" || !feature.trim())) {
+    throw new Error(`${location}: access.requiredFeatures must be a string list`);
+  }
+  const unknownFeatures = access.requiredFeatures.filter((feature) => !requiredRuntimeFeatures.has(feature));
+  if (unknownFeatures.length > 0) throw new Error(`${location}: unknown access.requiredFeatures: ${unknownFeatures.join(", ")}`);
+}
+
+function validateSchemaViewerContract(schemaViewer, location) {
+  if (!schemaViewer || typeof schemaViewer !== "object" || Array.isArray(schemaViewer)) throw new Error(`${location}: schemaViewer contract is required`);
+  validateKnownKeys(schemaViewer, schemaViewerKeys, `${location}: schemaViewer`);
+  if (!schemaViewerKinds.has(schemaViewer.kind)) throw new Error(`${location}: invalid schemaViewer.kind`);
+  if (!schemaViewerProviders.has(schemaViewer.provider)) throw new Error(`${location}: invalid schemaViewer.provider`);
+  if (!Array.isArray(schemaViewer.scopeLevels) || schemaViewer.scopeLevels.length === 0 || schemaViewer.scopeLevels.some((level) => !schemaViewerScopeLevels.has(level))) {
+    throw new Error(`${location}: invalid schemaViewer.scopeLevels`);
   }
 }
 
@@ -180,7 +234,34 @@ function loadConnectionProfiles(descriptors) {
     return profile;
   });
 
+  validateAccessProfileCoverage(descriptors, profiles);
+
   return profiles;
+}
+
+function validateAccessProfileCoverage(descriptors, profiles) {
+  const profilesByType = new Map();
+  for (const profile of profiles) {
+    const entries = profilesByType.get(profile.dbType) ?? [];
+    entries.push(profile);
+    profilesByType.set(profile.dbType, entries);
+  }
+  for (const descriptor of descriptors) {
+    const pickerMode = descriptor.access.connectionPicker;
+    const typeProfiles = profilesByType.get(descriptor.dbType) ?? [];
+    if (pickerMode === "plugin-provided") {
+      if (descriptor.dbType !== "plugin" || descriptor.access.runtimeProvider !== "external-plugin") {
+        throw new Error(`${descriptor.dbType}: plugin-provided picker requires the external-plugin runtime`);
+      }
+      continue;
+    }
+    if (typeProfiles.length === 0) {
+      throw new Error(`${descriptor.dbType}: ${pickerMode} access requires at least one connection profile`);
+    }
+    if (pickerMode === "direct" && !typeProfiles.some((profile) => profile.category)) {
+      throw new Error(`${descriptor.dbType}: no connection profile is reachable from the picker`);
+    }
+  }
 }
 
 function validateDriverStoreOrders(descriptors) {
@@ -238,10 +319,7 @@ function jsonOutput(descriptors) {
 
 function typeOutput(descriptors) {
   const values = descriptors.map((descriptor) => `  "${descriptor.dbType}",`).join("\n");
-  // "plugin" is the plugin-framework internal connection type: it is not a
-  // user-selectable driver (hence absent from DATABASE_TYPES) but connection
-  // configs can carry it, so the DatabaseType union must accept it.
-  return `// Generated by scripts/sync-connection-types.mjs. Do not edit manually.\nexport const DATABASE_TYPES = [\n${values}\n] as const;\n\nexport type DatabaseType = (typeof DATABASE_TYPES)[number] | "plugin";\n`;
+  return `// Generated by scripts/sync-connection-types.mjs. Do not edit manually.\nexport const DATABASE_TYPES = [\n${values}\n] as const;\n\nexport type DatabaseType = (typeof DATABASE_TYPES)[number];\n`;
 }
 
 function typescriptPropertyName(value) {

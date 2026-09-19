@@ -13,6 +13,12 @@ describe("generated connection profiles", () => {
     expect(CONNECTION_PROFILES.rabbitmq).toMatchObject({ type: "mq", port: 5672, host: "127.0.0.1" });
     expect(CONNECTION_PROFILES.nacos).toMatchObject({ type: "nacos", port: 8848, user: "nacos" });
     expect(CONNECTION_PROFILES.argo).toMatchObject({ type: "argo", urlParams: "auth=noSasl" });
+    expect(CONNECTION_PROFILES["chirondb-relational"]).toMatchObject({
+      type: "postgres",
+      port: 7403,
+      user: "chiron",
+      urlParams: "sslmode=disable",
+    });
   });
 
   it("keeps internal variants out of the main picker", () => {

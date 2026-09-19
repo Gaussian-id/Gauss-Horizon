@@ -131,6 +131,10 @@ describe("EditorSettingsDialog choice card containment", () => {
   it("keeps large icon theme choices in appearance and debug logs in About", () => {
     expect(sourceIndexForKey("iconTheme")).toBeLessThan(sourceIndexForKey("debugLoggingEnabled"));
     expect(templateSource).toContain("data-icon-theme-settings");
+    expect(templateSource).toContain("webPath('/logo.png')");
+    expect(templateSource).toContain("webPath('/logo-black.png')");
+    expect(templateSource).not.toContain("icon-preview-default.png");
+    expect(templateSource).not.toContain("icon-preview-black.png");
     for (const key of ["iconThemeDefault", "iconThemeBlack"] as const) {
       const block = buttonBlockForKey(key);
       expectClassTokens(classNameFromTag(openingTag(block, "Button")), ["settings-choice-card", "h-auto", "min-w-0", "whitespace-normal", "overflow-hidden"]);
